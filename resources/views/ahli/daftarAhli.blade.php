@@ -1,4 +1,4 @@
-@extends('layouts.navbar')
+@extends('layouts.app')
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -414,7 +414,7 @@
                         </table>
                         <br>
                         <button class="btn btn-primary" type="submit">Submit</button>
-                        <a href="/"><button class="btn btn-danger">Batal</button></a> 
+                        <a href="{{ route('home') }}"><button class="btn btn-danger">Batal</button></a> 
                     </form>
                 </div>
             </div>

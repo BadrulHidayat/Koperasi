@@ -48,7 +48,7 @@
                                             class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a tabindex="-1" href="{{ route('daftarAhli') }}">Daftar Ahli</a></li>
-                                        <li><a tabindex="-1" href="#">Yuran Pendaftaran</a></li>
+                                        <li><a tabindex="-1" href="{{ route('daftarYuran') }}">Yuran Pendaftaran</a></li>
 
                                     </ul>
                                 </li>
@@ -70,8 +70,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Daftar Individu</a>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Maklumat
-                                        Individu</a></li>
+                                <li><a class="dropdown-item" href="#">Maklumat Individu</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -100,8 +99,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Pelbagai
+                                data-bs-toggle="dropdown" aria-expanded="false"> Pelbagai
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Perubatan</a></li>
@@ -118,8 +116,8 @@
                                 Kakitangan
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Daftar Kakitangan</a></li>
-                                <li><a class="dropdown-item" href="#">Maklumat Kakitangan</a></li>
+                                <li><a class="dropdown-item" href="{{ route('daftarKakitangan') }}">Daftar Kakitangan</a></li>
+                                <li><a class="dropdown-item" href="{{ route('maklumatStaff') }}">Maklumat Kakitangan</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
