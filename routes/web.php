@@ -98,7 +98,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('kakitangan/padamAlamatStaff/{noKPBaru}', 'App\Http\Controllers\MainController@padamAlamatStaff')->name('padamAlamatStaff');
         Route::post('kakitangan/daftarAlamatStaff/{noKPBaru}', 'App\Http\Controllers\MainController@daftarAlamatStaff')->name('daftarAlamatStaff');
 
-        //Route no telefon kakitangan
+        //Route perhubungan kakitangan
         Route::post('kakitangan/updateTelRStaff/{noKPBaru}', 'App\Http\Controllers\MainController@updateTelRStaff')->name('updateTelRStaff');
         Route::post('kakitangan/updateTelPStaff/{noKPBaru}', 'App\Http\Controllers\MainController@updateTelPStaff')->name('updateTelPStaff');
         Route::post('kakitangan/updateTelHPStaff/{noKPBaru}', 'App\Http\Controllers\MainController@updateTelHPStaff')->name('updateTelHPStaff');

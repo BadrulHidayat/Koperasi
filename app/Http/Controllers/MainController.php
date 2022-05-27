@@ -695,7 +695,7 @@ class MainController extends Controller
         //$ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
 
         $ahli = DB::table('ahlis')
-            ->join("berhentis", "ahlis.noKPBaru", "=", "berhentis.noKPBaru")
+            ->join('berhentis', 'ahlis.noKPBaru', '=', 'berhentis.noKPBaru')
             ->select(
                 'ahlis.noAhli',
                 'ahlis.nama',

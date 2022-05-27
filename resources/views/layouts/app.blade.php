@@ -12,7 +12,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/css/bootstrap-4-navbar.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('public/js/bootstrap-4-navbar.js') }}"></script>
 
 </head>
 
@@ -32,22 +34,26 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
+                        <li class="nav-item active">
+                            <a class="nav-link" aria-current="page" href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Ahli</a>
+                            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ahli</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="{{ route('maklumatAhli') }}">Maklumat Ahli</a></li>
-                                <li class="dropdown-submenu">
-                                    <a class="dropdown-item dropdown-toggle" href="#" role="button" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pendaftaran {{--&raquo;--}}</a>
-                                    <ul class="dropdown-menu" aria-labelledby="multilevelDropdownMenu1">
+                                <li><a class="dropdown-item dropdown-toggle" href="#">Pendaftaran {{--&raquo;--}}</a>
+                                    <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="{{ route('daftarAhli') }}">Daftar Ahli</a></li>
                                         <li><a class="dropdown-item" href="{{ route('daftarYuran') }}">Yuran Pendaftaran</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown dropend">
-                                    <a class="dropdown-item dropdown-toggle" href="#" role="button" id="multilevelDropdownMenu2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pemberhentian</a>
+                                <li>
+                                    <a class="dropdown-item dropdown-toggle" href="#">Pemberhentian</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{{ route('daftarBerhenti') }}">Daftar Berhenti</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('maklumatBerhenti') }}">Maklumat Berhenti</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('kelulusanPemberhentian') }}">Kemaskini Kelulusan Pemberhentian</a></li>
+                                    </ul>
                                 </li>
                                 <li><a class="dropdown-item" href="#">Laporan Keahlian</a></li>
                                 <li><a class="dropdown-item" href="#">Transaksi Ahli</a></li>

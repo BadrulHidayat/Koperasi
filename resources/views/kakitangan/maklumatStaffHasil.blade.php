@@ -12,7 +12,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/css/bootstrap-4-navbar.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('public/js/bootstrap-4-navbar.js') }}"></script>
 
 </head>
 
@@ -796,7 +798,7 @@
                             <button id="close_bank" class="btn btn-danger">Close</button>
                         </div>
                         <br>
-                        <div class="col-md-12" id="appearEditBank" style="display: none">
+                        <div class="col-md-8" id="appearEditBank" style="display: none">
                             <form action="{{ route('updateBankStaff', $bank2->noKPBaru) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
