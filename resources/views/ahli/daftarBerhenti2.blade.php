@@ -49,16 +49,16 @@
                             <th>No KP Baru</th>
                             <th>No KP Lama</th>
                         </tr>
-                        {{--@foreach ($ahli as $item)--}}
+                        @foreach ($ahli as $item)
                             <tr>
-                                <td>{{ $ahli->noAhli }}</td>
-                                <td>{{ $ahli->tarikhDaftar }}</td>
+                                <td>{{ $item->noAhli }}</td>
+                                <td>{{ $item->tarikhDaftar }}</td>
                                 <td></td>
-                                <td>{{ $ahli->nama }}</td>
-                                <td>{{ $ahli->noKPBaru }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->noKPBaru }}</td>
                                 <td></td>
                             </tr>
-                        {{--@endforeach--}}
+                        @endforeach
                     </table>
                 </div>
                 <div class="card-body">

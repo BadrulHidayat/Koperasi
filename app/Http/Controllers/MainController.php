@@ -142,42 +142,6 @@ class MainController extends Controller
             'potongan' => 'required',
         ]);
 
-        /*$ahli = new ahli_daftar();
-
-        $ahli->statusAhli = $request->statusAhli;
-        $ahli->noAhliTerkini = $request->noAhliTerkini;
-        $ahli->noAhli = $request->noAhli;
-        $ahli->tarikhDaftar = $request->tarikhDaftar;
-        $ahli->nama = $request->nama;
-        $ahli->noKPBaru = $request->noKPBaru;
-        $ahli->jantina = $request->jantina;
-        $ahli->bangsa = $request->bangsa;
-        $ahli->agama = $request->agama;
-        $ahli->tarikhLahir = $request->tarikhLahir;
-        $ahli->tempatLahir = $request->tempatLahir;
-        $ahli->caraPembayaran = $request->caraPembayaran;
-        $ahli->alamat = $request->alamat;
-        $ahli->poskod = $request->poskod;
-        $ahli->bandar = $request->bandar;
-        $ahli->negeri = $request->negeri;
-        $ahli->jenisAlamat = $request->jenisAlamat;
-        $ahli->noAkaunBank = $request->noAkaunBank;
-        $ahli->jenisBank = $request->jenisBank;
-        $ahli->telRumah = $request->telRumah;
-        $ahli->telPejabat = $request->telPejabat;
-        $ahli->telHP = $request->telHP;
-        $ahli->faks = $request->faks;
-        $ahli->email = $request->email;
-        $ahli->carianPejabat = $request->carianPejabat;
-        $ahli->carianPembayarGaji = $request->carianPembayarGaji;
-        $ahli->jawatan = $request->jawatan;
-        $ahli->tarikhMulaKerja = $request->tarikhMulaKerja;
-        $ahli->noGaji = $request->noGaji;
-        $ahli->Gaji = $request->Gaji;
-        $ahli->potongan = $request->potongan;
-        $ahli->perakuan = $request->perakuan;
-        $ahli->user_id = Auth::user()->id;*/
-
         $ahli = new ahli();
 
         $ahli->statusAhli = $request->statusAhli;
@@ -262,21 +226,17 @@ class MainController extends Controller
         $carian = $_POST['carian'];
         $jenisCarian = $_POST['jenisCarian'];
 
-        $ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
-        $alamat = alamat::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
-        $bank = bank::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
-        $noTelefon = noTelefon::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
-
-        //dd($ahli->toArray());
-        return view('ahli.maklumatAhliHasil', compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
+        
+        return view('ahli.maklumatAhli2', compact('ahli'));
     }
 
-    public function maklumatAhliHasil()
+    public function maklumatAhliHasil($noKPBaru)
     {
-        $ahli = ahli::all();
-        $alamat = alamat::all();
-        $bank = bank::all();
-        $noTelefon = noTelefon::all();
+        $ahli = ahli::where("noKPBaru", $noKPBaru)->first();
+        $alamat = alamat::where("noKPBaru", $noKPBaru)->first();
+        $bank = bank::where("noKPBaru", $noKPBaru)->first();
+        $noTelefon = noTelefon::where("noKPBaru", $noKPBaru)->first();
 
         return view('ahli.maklumatAhliHasil', compact('ahli', 'alamat', 'bank', 'noTelefon'));
     }
@@ -692,7 +652,7 @@ class MainController extends Controller
         $carian = $_POST['carian'];
         $jenisCarian = $_POST['jenisCarian'];
 
-        //$ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
+        /*$ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
 
         $ahli = DB::table('ahlis')
             ->join('berhentis', 'ahlis.noKPBaru', '=', 'berhentis.noKPBaru')
@@ -707,9 +667,12 @@ class MainController extends Controller
                 'berhentis.updated_at',
             )
             ->where($jenisCarian, 'LIKE', '%' . $carian . '%')
-            ->get();
+            ->first();*/
 
-        return view('ahli.maklumatBerhenti2', compact('ahli'));
+            $ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
+            $berhenti = berhenti::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
+
+        return view('ahli.maklumatBerhenti2', compact('ahli', 'berhenti'));
     }
 
     public function maklumatBerhenti2()
@@ -1021,32 +984,27 @@ class MainController extends Controller
         $carian = $_POST['carian'];
         $jenisCarian = $_POST['jenisCarian'];
 
-        $staff = kakitangan_daftar::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
-        $alamat2 = kakitangan_alamat::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
-        $bank2 = kakitangan_bank::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
-        $perhubungan = kakitangan_perhubungan::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
-        $pekerjaan = kakitangan_pekerjaan::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
-        $pendidikan = kakitangan_pendidikan::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
+        $staff = kakitangan_daftar::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
 
-        return view('kakitangan.maklumatStaffHasil', compact('staff', 'alamat2', 'bank2', 'perhubungan', 'pekerjaan', 'pendidikan'));
+        return view('kakitangan.maklumatStaff2', compact('staff'));
     }
 
-    public function maklumatStaffHasil()
+    public function maklumatStaffHasil($noKPBaru)
     {
-        $staff = kakitangan_daftar::all();
-        $alamat2 = kakitangan_alamat::all();
-        $bank2 = kakitangan_bank::all();
-        $perhubungan = kakitangan_perhubungan::all();
-        $pekerjaan = kakitangan_pekerjaan::all();
-        $pendidikan = kakitangan_pendidikan::all();
+        $staff = kakitangan_daftar::where("noKPBaru", $noKPBaru)->first();
+        $alamat2 = kakitangan_alamat::where("noKPBaru", $noKPBaru)->first();
+        $bank2 = kakitangan_bank::where("noKPBaru", $noKPBaru)->first();
+        $perhubungan = kakitangan_perhubungan::where("noKPBaru", $noKPBaru)->first();
+        $pekerjaan = kakitangan_pekerjaan::where("noKPBaru", $noKPBaru)->first();
+        $pendidikan = kakitangan_pendidikan::where("noKPBaru", $noKPBaru)->first();
 
         return view('kakitangan.maklumatStaffHasil', compact('staff', 'alamat2', 'bank2', 'perhubungan', 'pekerjaan', 'pendidikan'));
     }
 
     public function maklumatStaffKemaskini(Request $request, $noKPBaru)
     {
-        $staff = kakitangan_daftar::where("noKPBaru", $noKPBaru)->first();
-        $pekerjaan = kakitangan_pekerjaan::where("noKPBaru", $noKPBaru)->first();
+        $staff = kakitangan_daftar::where("noKPBaru", $noKPBaru)->get();
+        $pekerjaan = kakitangan_pekerjaan::where("noKPBaru", $noKPBaru)->get();
 
         return view('kakitangan.maklumatStaffKemaskini', compact('staff', 'pekerjaan'));
     }

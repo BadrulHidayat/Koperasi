@@ -270,7 +270,7 @@
                             </tr>
                             <tr>
                                 <th scope="row"></th>
-                                <th>{{ $pekerjaan->noStaff }}</th>
+                                <th>{{ $staff->noStaff }}</th>
                                 <th>{{ $pekerjaan->tarikhMulaKerja }}</th>
                                 <th>{{ $staff->nama }}</th>
                                 <th>{{ $staff->noKPBaru }}</th>
@@ -995,7 +995,7 @@
                         </div>
                         @endif
                         <br>
-                        @if($pendidikan->tarafPendidikan==FALSE)
+                        @if($pendidikan==FALSE)
                          <div class="col-md-6" id="appearDaftarPendidikan" style="display: none">
                             <form action="{{ route('daftarPendidikanStaff', $bank2->noKPBaru) }}" method="POST"
                                 enctype="multipart/form-data">

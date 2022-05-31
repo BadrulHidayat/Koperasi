@@ -39,7 +39,26 @@
                         </tr>
                     </table>
                     </form>
-                    
+                    <br><br>
+                    <div class="col-md-8">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th scope="col">Tindakan</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">No KP baru</th>
+                            <th scope="col">No KP lama</th>
+                        </tr>
+                        @foreach ($ahli as $info)
+                            <tr>
+                                <td><a href="{{ route('maklumatAhliHasil', $info->noKPBaru) }}" class="btn btn-secondary">Tindakan</a>
+                                </td>
+                                <td>{{ $info->nama }}</td>
+                                <td>{{ $info->noKPBaru }}</td>
+                                <td>{{ $info->noKPLama }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                    </div>
                 </div>
             </div>
         </div>

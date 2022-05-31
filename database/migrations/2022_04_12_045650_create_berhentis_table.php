@@ -23,6 +23,7 @@ class CreateBerhentisTable extends Migration
             $table->date('tarikhBerhenti');
             $table->string('statusBerhenti');
             $table->string('sebabBerhenti');
+            $table->string('statusKelulusan');
             $table->date('akhirPotongan');
             $table->date('tarikhPemgembalian');
             $table->timestamps();

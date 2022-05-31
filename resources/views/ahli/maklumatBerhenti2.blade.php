@@ -68,17 +68,17 @@
                                     <td>{{ $ahli->nama }}</td>
                                     <td>{{ $ahli->noKPBaru }}</td>
                                     <td></td>
-                                    <td>{{ $ahli->tarikhMohon }}</td>
+                                    <td>{{ $berhenti->tarikhMohon }}</td>
                                     <td></td>
                                     <td></td>
                                     <td>Daftar Berhenti</td>
                                     <td></td>
-                                    <td>{{ $ahli->statusBerhenti }}</td>
+                                    <td>{{ $berhenti->statusBerhenti }}</td>
                                     <td></td>
                                     <td></td>
-                                    <td>{{ $ahli->created_at }}</td>
+                                    <td>{{ $berhenti->created_at }}</td>
                                     <td></td>
-                                    <td>{{ $ahli->updated_at }}</td>
+                                    <td>{{ $berhenti->updated_at }}</td>
                                     <td>
                                         <a href="{{ route('maklumatBerhentiUpdate', $ahli->noKPBaru) }}" class="btn btn-secondary btn-block">Kemaskini</a>
                                     </td>

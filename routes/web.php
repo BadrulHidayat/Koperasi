@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
         //Route maklumat ahli
         Route::get('ahli/maklumatAhli', 'App\Http\Controllers\MainController@maklumatAhli')->name('maklumatAhli');
         Route::post('ahli/maklumatAhliCari', 'App\Http\Controllers\MainController@maklumatAhliCari')->name('maklumatAhliCari');
-        Route::get('ahli/maklumatAhliHasil', 'App\Http\Controllers\MainController@maklumatAhliHasil')->name('maklumatAhliHasil');
+        Route::get('ahli/maklumatAhliHasil/{noKPBaru}', 'App\Http\Controllers\MainController@maklumatAhliHasil')->name('maklumatAhliHasil');
         Route::get('ahli/maklumatAhliKemaskini/{noKPBaru}', 'App\Http\Controllers\MainController@maklumatAhliKemaskini')->name('maklumatAhliKemaskini');
         Route::post('ahli/kemaskiniAhli/{noKPBaru}', 'App\Http\Controllers\MainController@kemaskiniAhli')->name('kemaskiniAhli');
 
@@ -88,8 +88,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Route maklumat kakitangan
         Route::get('kakitangan/maklumatStaff', 'App\Http\Controllers\MainController@maklumatStaff')->name('maklumatStaff');
+        Route::get('kakitangan/maklumatStaff2', 'App\Http\Controllers\MainController@maklumatStaff2')->name('maklumatStaff2');
         Route::post('kakitangan/maklumatStaffCari', 'App\Http\Controllers\MainController@maklumatStaffCari')->name('maklumatStaffCari');
-        Route::get('kakitangan/maklumatStaffHasil', 'App\Http\Controllers\MainController@maklumatStaffHasil')->name('maklumatStaffHasil');
+        Route::get('kakitangan/maklumatStaffHasil/{noKPBaru}', 'App\Http\Controllers\MainController@maklumatStaffHasil')->name('maklumatStaffHasil');
         Route::get('kakitangan/maklumatStaffKemaskini/{noKPBaru}', 'App\Http\Controllers\MainController@maklumatStaffKemaskini')->name('maklumatStaffKemaskini');
         Route::post('kakitangan/kemaskiniStaff/{noKPBaru}', 'App\Http\Controllers\MainController@kemaskiniStaff')->name('kemaskiniStaff');
 
