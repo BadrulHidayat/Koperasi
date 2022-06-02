@@ -309,7 +309,7 @@ class MainController extends Controller
 
         $alamat = alamat::where("id", $id)->delete();
 
-        return redirect()->route('maklumatAhliHasil', compact('alamat'));
+        return redirect()->route('maklumatAhli');
     }
 
     public function updateAlamat(Request $request, $noKPBaru)
@@ -613,11 +613,11 @@ class MainController extends Controller
         return view('ahli.daftarBerhenti2', compact('ahli',));
     }
 
-    public function daftarBerhenti2()
+    public function daftarBerhentiForm($noKPBaru)
     {
-        $ahli = ahli::all();
+        $ahli = ahli::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.daftarBerhenti2', compact('ahli'));
+        return view('ahli.daftarBerhentiForm', compact('ahli'));
     }
 
     public function daftarBerhentiTambah(Request $request)
@@ -652,7 +652,7 @@ class MainController extends Controller
         $carian = $_POST['carian'];
         $jenisCarian = $_POST['jenisCarian'];
 
-        /*$ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
+        //$ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
 
         $ahli = DB::table('ahlis')
             ->join('berhentis', 'ahlis.noKPBaru', '=', 'berhentis.noKPBaru')
@@ -660,36 +660,38 @@ class MainController extends Controller
                 'ahlis.noAhli',
                 'ahlis.nama',
                 'ahlis.noKPBaru',
+                'berhentis.id',
                 'berhentis.tarikhMohon',
                 'berhentis.statusBerhenti',
                 'berhentis.sebabBerhenti',
                 'berhentis.created_at',
                 'berhentis.updated_at',
             )
-            ->where($jenisCarian, 'LIKE', '%' . $carian . '%')
-            ->first();*/
+            //->where($jenisCarian, 'LIKE', '%' . $carian . '%')
+            ->get();
 
-            $ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
-            $berhenti = berhenti::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
+            //$ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
+            //$berhenti = berhenti::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
 
-        return view('ahli.maklumatBerhenti2', compact('ahli', 'berhenti'));
+        return view('ahli.maklumatBerhenti2', compact('ahli'));
     }
 
     public function maklumatBerhenti2()
     {
         $ahli = DB::table('ahlis')
-            ->join("berhentis", "berhentis.noKPBaru", "=", "ahlis.noKPBaru")
-            ->select(
-                'ahlis.noAhli',
-                'ahlis.nama',
-                'ahlis.noKPBaru',
-                'berhentis.tarikhMohon',
-                'berhentis.statusBerhenti',
-                'berhentis.sebabBerhenti',
-                'berhentis.created_at',
-                'berhentis.updated_at',
-            )
-            ->first();
+        ->join('berhentis', 'ahlis.noKPBaru', '=', 'berhentis.noKPBaru')
+        ->select(
+            'ahlis.noAhli',
+            'ahlis.nama',
+            'ahlis.noKPBaru',
+            'berhentis.id',
+            'berhentis.tarikhMohon',
+            'berhentis.statusBerhenti',
+            'berhentis.sebabBerhenti',
+            'berhentis.created_at',
+            'berhentis.updated_at',
+        )
+        ->get();
 
         return view('ahli.maklumatBerhenti2', compact('ahli'));
     }
@@ -731,6 +733,15 @@ class MainController extends Controller
         return redirect()->route('maklumatBerhenti')->with(['message' => 'Kemaskini Berjaya.']);
     }
 
+    public function padamMaklumatBerhenti($id)
+    {
+        $berhenti = berhenti::where("id", $id)->first();
+
+        $berhenti->delete();
+
+        return redirect()->route('maklumatBerhenti');
+    }
+
     public function kelulusanPemberhentian()
     {
         return view('ahli.kelulusanPemberhentian');
@@ -753,15 +764,45 @@ class MainController extends Controller
                 'berhentis.created_at',
                 'berhentis.updated_at',
             )
-            ->where('noAhli', 'LIKE', '%' . $carian . '%')
-            ->first();
+            //->where('noAhli', 'LIKE', '%' . $carian . '%')
+            ->get();
 
         return view('ahli.kelulusanPemberhentian2')->with(compact('ahli'));
     }
 
-    public function kelulusanPemberhentian2()
+    public function kelulusanPemberhentianEdit($noKPBaru)
     {
-        return view('ahli.kelulusanPemberhentian2');
+        $ahli = DB::table('ahlis')
+            ->join("berhentis", "berhentis.noAhli", "=", "ahlis.noAhli")
+            ->select(
+                'ahlis.noAhli',
+                'ahlis.nama',
+                'ahlis.noKPBaru',
+                'berhentis.tarikhMohon',
+                'berhentis.statusBerhenti',
+                'berhentis.sebabBerhenti',
+                'berhentis.statusKelulusan',
+                'berhentis.tarikhLulus',
+                'berhentis.tarikhBerhenti',
+                'berhentis.created_at',
+                'berhentis.updated_at',
+            )
+            ->first();
+
+        return view('ahli.kelulusanPemberhentianEdit', compact('ahli'));
+    }
+
+    public function kelulusanPemberhentianUpdate(Request $request, $noKPBaru)
+    {
+        $berhenti = berhenti::where("noKPBaru", $noKPBaru)->first();
+
+        $berhenti->tarikhLulus = $request->tarikhLulus;
+        $berhenti->tarikhBerhenti = $request->tarikhBerhenti;
+        $berhenti->statusKelulusan = $request->statusKelulusan;
+
+        $berhenti->save();
+
+        return redirect()->route('kelulusanPemberhentian');
     }
 
     public function daftarKakitangan()

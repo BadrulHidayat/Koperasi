@@ -424,12 +424,12 @@
                         <br><br>
                         @if($alamat==FALSE)
                         <div class="col-md-6" id="appear8" style="display: none">
-                            <form action="{{ route('daftarAlamat', $alamat->noKPBaru) }}" method="POST"
+                            <form action="{{ route('daftarAlamat', $ahli->noKPBaru) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <table class="table table-bordered table-striped">
                                     <tr>
-                                        <input type="hidden" name="noAhli" value="{{ $alamat->noAhli }}">
+                                        <input type="hidden" name="noAhli" value="{{ $ahli->noAhli }}">
                                         <th style="width: 20%">
                                             <label for="alamat">Alamat</label>
                                         </th>

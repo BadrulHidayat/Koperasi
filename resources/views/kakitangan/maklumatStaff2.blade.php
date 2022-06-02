@@ -41,18 +41,17 @@
                 <div class="col-md-8">
                 <table class="table table-bordered table-striped">
                     <tr>
-                        <th scope="col">Tindakan</th>
                         <th scope="col">Nama</th>
                         <th scope="col">No KP Baru</th>
                         <th scope="col">No KP Lama</th>
+                        <th scope="col">Tindakan</th>
                     </tr>
                     @foreach ($staff as $info)
                         <tr>
-                            <td scope="row"><a href="{{ route('maklumatStaffHasil', $info->noKPBaru) }}" class="btn btn-secondary btn-block">Tindakan</a>
-                            </td>
                             <td>{{ $info->nama }}</td>
                             <td>{{ $info->noKPBaru }}</td>
                             <td>{{ $info->noKPLama }}</td>
+                            <td scope="row"><a href="{{ route('maklumatStaffHasil', $info->noKPBaru) }}" class="btn btn-secondary btn-block">Tindakan</a></td>
                         </tr>
                     @endforeach
                 </table>

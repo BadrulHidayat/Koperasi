@@ -7,7 +7,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h4>Carian Ahli</h4>
+                    <h4>Daftar / Kemaskini Anggota Berhenti</h4>
                     <form action="{{ route('cariAhliBerhenti') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <table>

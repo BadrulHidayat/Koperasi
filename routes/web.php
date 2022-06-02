@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('ahli/daftarBerhenti', 'App\Http\Controllers\MainController@daftarBerhenti')->name('daftarBerhenti');
         Route::get('ahli/daftarBerhenti2', 'App\Http\Controllers\MainController@daftarBerhenti2')->name('daftarBerhenti2');
         Route::post('ahli/cariAhliBerhenti', 'App\Http\Controllers\MainController@cariAhliBerhenti')->name('cariAhliBerhenti');
+        Route::get('ahli/daftarBerhentiForm/{noKPBaru}', 'App\Http\Controllers\MainController@daftarBerhentiForm')->name('daftarBerhentiForm');
         Route::post('ahli/daftarBerhentiTambah', 'App\Http\Controllers\MainController@daftarBerhentiTambah')->name('daftarBerhentiTambah');
 
         //Route maklumat pemberhentian
@@ -74,11 +75,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('ahli/cariMaklumatBerhenti', 'App\Http\Controllers\MainController@cariMaklumatBerhenti')->name('cariMaklumatBerhenti');
         Route::get('ahli/maklumatBerhentiUpdate/{noKPBaru}', 'App\Http\Controllers\MainController@maklumatBerhentiUpdate')->name('maklumatBerhentiUpdate');
         Route::post('ahli/kemaskiniBerhenti/{noKPBaru}', 'App\Http\Controllers\MainController@kemaskiniBerhenti')->name('kemaskiniBerhenti');
+        Route::get('ahli/padamMaklumatBerhenti/{id}', 'App\Http\Controllers\MainController@padamMaklumatBerhenti')->name('padamMaklumatBerhenti');
 
         //Route Kelulusan Pemberhentian
         Route::get('ahli/kelulusanPemberhentian', 'App\Http\Controllers\MainController@kelulusanPemberhentian')->name('kelulusanPemberhentian');
         Route::get('ahli/kelulusanPemberhentian2', 'App\Http\Controllers\MainController@kelulusanPemberhentian2')->name('kelulusanPemberhentian2');
+        Route::get('ahli/kelulusanPemberhentianEdit/{noKPBaru}', 'App\Http\Controllers\MainController@kelulusanPemberhentianEdit')->name('kelulusanPemberhentianEdit');
         Route::post('ahli/lulusBerhentiCari', 'App\Http\Controllers\MainController@lulusBerhentiCari')->name('lulusBerhentiCari');
+        Route::post('ahli/kelulusanPemberhentianUpdate/{noKPBaru}', 'App\Http\Controllers\MainController@kelulusanPemberhentianUpdate')->name('kelulusanPemberhentianUpdate');
 
         //Route Daftar Kakitangan
         Route::get('kakitangan/daftarKakitangan', 'App\Http\Controllers\MainController@daftarKakitangan')->name('daftarKakitangan');
