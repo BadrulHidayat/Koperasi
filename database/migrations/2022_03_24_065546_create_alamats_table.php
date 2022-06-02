@@ -13,7 +13,7 @@ class CreateAlamatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('alamats', function (Blueprint $table) {
+        Schema::create('ahli_alamats', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
             $table->string('noAhli');
@@ -34,6 +34,6 @@ class CreateAlamatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alamats');
+        Schema::dropIfExists('ahli_alamats');
     }
 }

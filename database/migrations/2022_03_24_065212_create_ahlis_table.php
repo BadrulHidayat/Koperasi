@@ -13,7 +13,7 @@ class CreateAhlisTable extends Migration
      */
     public function up()
     {
-        Schema::create('ahlis', function (Blueprint $table) {
+        Schema::create('ahli_daftars', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
             $table->string('statusAhli');
@@ -50,6 +50,6 @@ class CreateAhlisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ahlis');
+        Schema::dropIfExists('ahli_daftars');
     }
 }

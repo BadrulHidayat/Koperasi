@@ -13,7 +13,7 @@ class CreateNoTelefonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('no_telefons', function (Blueprint $table) {
+        Schema::create('ahli_perhubungans', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
             $table->string('noAhli');
@@ -34,6 +34,6 @@ class CreateNoTelefonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('no_telefons');
+        Schema::dropIfExists('ahli_perhubungans');
     }
 }
