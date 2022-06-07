@@ -41,6 +41,7 @@
                 <div class="col-md-8">
                 <table class="table table-bordered table-striped">
                     <tr>
+                        <th scope="col">No Staff</th>
                         <th scope="col">Nama</th>
                         <th scope="col">No KP Baru</th>
                         <th scope="col">No KP Lama</th>
@@ -48,6 +49,7 @@
                     </tr>
                     @foreach ($staff as $info)
                         <tr>
+                            <td>{{ $info->noStaff }}</td>
                             <td>{{ $info->nama }}</td>
                             <td>{{ $info->noKPBaru }}</td>
                             <td>{{ $info->noKPLama }}</td>

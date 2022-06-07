@@ -57,7 +57,9 @@ class AhliController extends Controller
             $noAkaunBank = $_POST['noAkaunBank'];
             $jenisBank = $_POST['jenisBank'];
             $carianPejabat = $_POST['carianPejabat'];
+            $jenisCarianPejabat = $_POST['jenisCarianPejabat'];
             $carianPembayarGaji = $_POST['carianPembayarGaji'];
+            $jenisCarianPembayarGaji = $_POST['jenisCarianPembayarGaji'];
             $jawatan = $_POST['jawatan'];
             $tarikMulaKerja = $_POST['tarikhMulaKerja'];
             $noGaji = $_POST['noGaji'];
@@ -93,6 +95,8 @@ class AhliController extends Controller
                 "jenisBank" => $jenisBank,
                 "carianPejabat" => $carianPejabat,
                 "carianPembayarGaji" => $carianPembayarGaji,
+                "jenisCarianPejabat" => $jenisCarianPejabat,
+                "jenisCarianPembayarGaji" => $jenisCarianPembayarGaji,
                 "jawatan" => $jawatan,
                 "tarikhMulaKerja" => $tarikMulaKerja,
                 "noGaji" => $noGaji,
