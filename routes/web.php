@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::prefix('/user/')->group(function () {  
+    Route::prefix('/user/')->group(function () {
         Route::get('ahli/daftarAhli', 'App\Http\Controllers\AhliController@daftarAhli')->name('daftarAhli');
         Route::match(['get', 'post'], 'ahli/pengesahanAhli', 'App\Http\Controllers\AhliController@pengesahanAhli')->name('pengesahanAhli');
         Route::post('ahli/simpanAhli', 'App\Http\Controllers\AhliController@simpanAhli')->name('simpanAhli');
@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('ahli/maklumatAhli', 'App\Http\Controllers\AhliController@maklumatAhli')->name('maklumatAhli');
         Route::post('ahli/maklumatAhliCari', 'App\Http\Controllers\AhliController@maklumatAhliCari')->name('maklumatAhliCari');
         Route::get('ahli/maklumatAhliHasil/{noKPBaru}', 'App\Http\Controllers\AhliController@maklumatAhliHasil')->name('maklumatAhliHasil');
+
+        //Route maklumat ahli kemaskini
         Route::get('ahli/maklumatAhliKemaskini/{noKPBaru}', 'App\Http\Controllers\AhliController@maklumatAhliKemaskini')->name('maklumatAhliKemaskini');
         Route::post('ahli/kemaskiniAhli/{noKPBaru}', 'App\Http\Controllers\AhliController@kemaskiniAhli')->name('kemaskiniAhli');
 
@@ -87,6 +89,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('ahli/lulusBerhentiCari', 'App\Http\Controllers\AhliController@lulusBerhentiCari')->name('lulusBerhentiCari');
         Route::post('ahli/kelulusanPemberhentianUpdate/{noKPBaru}', 'App\Http\Controllers\AhliController@kelulusanPemberhentianUpdate')->name('kelulusanPemberhentianUpdate');
 
+
         //Route Daftar Kakitangan
         Route::get('kakitangan/daftarKakitangan', 'App\Http\Controllers\KakitanganController@daftarKakitangan')->name('daftarKakitangan');
         Route::match(['get', 'post'], 'kakitangan/pengesahanKakitangan', 'App\Http\Controllers\KakitanganController@pengesahanKakitangan')->name('pengesahanKakitangan');
@@ -118,7 +121,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('kakitangan/padamFaksStaff/{noKPBaru}', 'App\Http\Controllers\KakitanganController@padamFaksStaff')->name('padamFaksStaff');
         Route::get('kakitangan/padamEmailStaff/{noKPBaru}', 'App\Http\Controllers\KakitanganController@padamEmailStaff')->name('padamEmailStaff');
 
-        //Route akaun bank ahli
+        //Route akaun bank kakitangan
         Route::post('kakitangan/updateBankStaff/{noKPBaru}', 'App\Http\Controllers\KakitanganController@updateBankStaff')->name('updateBankStaff');
         Route::get('kakitangan/padamBankStaff/{noKPBaru}', 'App\Http\Controllers\KakitanganController@padamBankStaff')->name('padamBankStaff');
         Route::post('kakitangan/daftarBankStaff/{noKPBaru}', 'App\Http\Controllers\KakitanganController@daftarBankStaff')->name('daftarBankStaff');
@@ -127,6 +130,90 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('kakitangan/updatePendidikanStaff/{noKPBaru}', 'App\Http\Controllers\KakitanganController@updatePendidikanStaff')->name('updatePendidikanStaff');
         Route::get('kakitangan/padamPendidikanStaff/{noKPBaru}', 'App\Http\Controllers\KakitanganController@padamPendidikanStaff')->name('padamPendidikanStaff');
         Route::post('kakitangan/daftarPendidikanStaff/{noKPBaru}', 'App\Http\Controllers\KakitanganController@daftarPendidikanStaff')->name('daftarPendidikanStaff');
+
+        //Route daftar individu
+        Route::get('individu/daftarIndividu', 'App\Http\Controllers\IndividuController@daftarIndividu')->name('daftarIndividu');
+        Route::post('individu/pengesahanIndividu', 'App\Http\Controllers\IndividuController@pengesahanIndividu')->name('pengesahanIndividu');
+        Route::post('individu/storeIndividu', 'App\Http\Controllers\IndividuController@storeIndividu')->name('storeIndividu');
+        Route::post('individu/pengesahanIndividu2', 'App\Http\Controllers\IndividuController@pengesahanIndividu2')->name('pengesahanIndividu2');
+
+        Route::get('individu/daftarIndividu2', 'App\Http\Controllers\IndividuController@daftarIndividu2')->name('daftarIndividu2');
+
+        //Route maklumat individu
+        Route::get('individu/maklumatIndividu', 'App\Http\Controllers\IndividuController@maklumatIndividu')->name('maklumatIndividu');
+        Route::post('individu/carianIndividu', 'App\Http\Controllers\IndividuController@carianIndividu')->name('carianIndividu');
+        Route::get('individu/maklumatIndividu2', 'App\Http\Controllers\IndividuController@maklumatIndividu')->name('maklumatIndividu2');
+
+        //Route delete maklumat individu
+        Route::get('individu/maklumatIndividu/delete/{id}', 'App\Http\Controllers\IndividuController@maklumatIndividuDelete')->name('maklumatIndividuDelete');
+
+        //Route edit & update
+        Route::get('individu/maklumatIndividu/edit/{id}', 'App\Http\Controllers\IndividuController@maklumatIndividuEdit')->name('maklumatIndividuEdit');
+        Route::post('individu/maklumatIndividu/update/{id}', 'App\Http\Controllers\IndividuController@maklumatIndividuUpdate')->name('maklumatIndividuUpdate');
+
+        //Route alamat individu
+        Route::post('individu/maklumatIndividu/edit2/{id}', 'App\Http\Controllers\IndividuController@maklumatIndividuAlamat')->name('maklumatIndividuAlamat');
+
+        //Route alamat update
+        Route::post('individu/maklumatIndividu/alamat/update/{id}', 'App\Http\Controllers\IndividuController@alamatIndividuUpdate')->name('alamatIndividuUpdate');
+
+        //Route perhubungan update
+        Route::post('individu/maklumatIndividu/perhubungan/update/{id}', 'App\Http\Controllers\IndividuController@perhubunganIndividuUpdate')->name('perhubunganIndividuUpdate');
+
+        //Route akaun update
+        Route::post('individu/maklumatIndividu/akaun/update/{id}', 'App\Http\Controllers\IndividuController@akaunIndividuUpdate')->name('akaunIndividuUpdate');
+
+        //Delete function
+        Route::get('individu/maklumatIndividu/alamat/{id}', 'App\Http\Controllers\IndividuController@alamatIndividuDelete')->name('alamatIndividuDelete');
+        Route::get('individu/maklumatIndividu/perhubungan/{id}', 'App\Http\Controllers\IndividuController@perhubunganIndividuDelete')->name('perhubunganIndividuDelete');
+        Route::get('individu/maklumatIndividu/akaun/{id}', 'App\Http\Controllers\IndividuController@akaunIndividuDelete')->name('akaunIndividuDelete');
+
+        //Route perhubungan individu
+        Route::post('individu/maklumatIndividu/edit3/{id}', 'App\Http\Controllers\IndividuController@maklumatIndividuPerhubungan')->name('maklumatIndividuPerhubungan');
+
+        //Route akaun individu
+        Route::post('individu/maklumatIndividu/edit4/{id}', 'App\Http\Controllers\IndividuController@maklumatIndividuAkaun')->name('maklumatIndividuAkaun');
+
+        Route::get('individu/displayIndividu', 'App\Http\Controllers\IndividuController@displayIndividu')->name('displayIndividu');
+        Route::get('individu/alamatIndividu', 'App\Http\Controllers\MainController@alamatIndividu')->name('alamatIndividu');
+
+        //Route daftar syarikat
+        Route::get('syarikat/daftarSyarikat', 'App\Http\Controllers\SyarikatController@daftarSyarikat')->name('daftarSyarikat');
+        Route::post('syarikat/pengesahanSyarikat', 'App\Http\Controllers\SyarikatController@pengesahanSyarikat')->name('pengesahanSyarikat');
+        Route::post('syarikat/storeSyarikat', 'App\Http\Controllers\SyarikatController@storeSyarikat')->name('storeSyarikat');
+        Route::get('syarikat/pengesahanSyarikat/{nama}', 'App\Http\Controllers\SyarikatController@pengesahanSyarikat2')->name('pengesahanSyarikat2');
+
+        //Route maklumat syarikat
+        Route::get('syarikat/maklumatSyarikat', 'App\Http\Controllers\SyarikatController@maklumatSyarikat')->name('maklumatSyarikat');
+        Route::post('syarikat/carianSyarikat', 'App\Http\Controllers\SyarikatController@carianSyarikat')->name('carianSyarikat');
+
+        //Route delete maklumat syarikat
+        Route::get('syarikat/maklumatSyarikat/delete/{id}', 'App\Http\Controllers\SyarikatController@maklumatSyarikatDelete')->name('maklumatSyarikatDelete');
+
+        //Route edit & update maklumat syarikat
+        Route::get('syarikat/maklumatSyarikat/edit/{id}', 'App\Http\Controllers\SyarikatController@maklumatSyarikatEdit')->name('maklumatSyarikatEdit');
+        Route::post('syarikat/maklumatSyarikat/update/{id}', 'App\Http\Controllers\SyarikatController@maklumatSyarikatUpdate')->name('maklumatSyarikatUpdate');
+
+        Route::post('syarikat/maklumatSyarikat/update2/{id}', 'App\Http\Controllers\SyarikatController@alamatSyarikatUpdate')->name('alamatSyarikatUpdate');
+
+        Route::post('syarikat/maklumatSyarikat/update3/{id}', 'App\Http\Controllers\SyarikatController@tel_HP_update')->name('tel_HP_update');
+        Route::post('syarikat/maklumatSyarikat/update4/{id}', 'App\Http\Controllers\SyarikatController@tel_P_update')->name('tel_P_update');
+        Route::post('syarikat/maklumatSyarikat/update5/{id}', 'App\Http\Controllers\SyarikatController@tel_R_update')->name('tel_R_update');
+        Route::post('syarikat/maklumatSyarikat/update6/{id}', 'App\Http\Controllers\SyarikatController@faks_update')->name('faks_update');
+        Route::post('syarikat/maklumatSyarikat/update7/{id}', 'App\Http\Controllers\SyarikatController@email_update')->name('email_update');
+        //Route::match(['get', 'post'], 'ahli/pengesahanAhli', 'App\Http\Controllers\MainController@pengesahanAhli')->name('pengesahanAhli');
+
+        //Route delete
+        Route::get('syarikat/maklumatSyarikat/alamatDelete/{id}', 'App\Http\Controllers\SyarikatController@alamatSyarikatDelete')->name('alamatSyarikatDelete');
+
+        Route::get('syarikat/maklumatSyarikat/delete1/{id}', 'App\Http\Controllers\SyarikatController@tel_HP_delete')->name('tel_HP_delete');
+        Route::get('syarikat/maklumatSyarikat/delete2/{id}', 'App\Http\Controllers\SyarikatController@tel_P_delete')->name('tel_P_delete');
+        Route::get('syarikat/maklumatSyarikat/delete3/{id}', 'App\Http\Controllers\SyarikatController@tel_R_delete')->name('tel_R_delete');
+        Route::get('syarikat/maklumatSyarikat/delete4/{id}', 'App\Http\Controllers\SyarikatController@faks_delete')->name('faks_delete');
+        Route::get('syarikat/maklumatSyarikat/delete5/{id}', 'App\Http\Controllers\SyarikatController@email_delete')->name('email_delete');
+
+        //daftar alamat syarikat
+        Route::post('syarikat/alamatSyarikat/daftar/{id}', 'App\Http\Controllers\SyarikatController@daftarAlamatSyarikat')->name('daftarAlamatSyarikat');
     });
 });
 

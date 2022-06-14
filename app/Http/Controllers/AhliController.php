@@ -7,9 +7,11 @@ use App\Models\ahli_alamat;
 use App\Models\ahli_bank;
 use App\Models\ahli_berhenti;
 use App\Models\ahli_perhubungan;
+use App\Models\ahli_syarikat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AhliController extends Controller
 {
@@ -20,7 +22,6 @@ class AhliController extends Controller
 
     public function pengesahanAhli()
     {
-        //error_reporting(E_ALL ^ E_WARNING || E_NOTICE);
         if (
             isset($_POST['statusAhli']) ||  isset($_POST['noAhli']) || isset($_POST['tarikhDaftar']) || isset($_POST['nama']) ||
             isset($_POST['noKPBaru']) || isset($_POST['jantina']) || isset($_POST['bangsa']) || isset($_POST['agama']) ||
@@ -56,10 +57,10 @@ class AhliController extends Controller
             $email = $_POST['email'];
             $noAkaunBank = $_POST['noAkaunBank'];
             $jenisBank = $_POST['jenisBank'];
-            $carianPejabat = $_POST['carianPejabat'];
-            $jenisCarianPejabat = $_POST['jenisCarianPejabat'];
-            $carianPembayarGaji = $_POST['carianPembayarGaji'];
-            $jenisCarianPembayarGaji = $_POST['jenisCarianPembayarGaji'];
+            $cariP = $_POST['cariP'];
+            $jenisCariP = $_POST['jenisCariP'];
+            $cariPG = $_POST['cariPG'];
+            $jenisCariPG = $_POST['jenisCariPG'];
             $jawatan = $_POST['jawatan'];
             $tarikMulaKerja = $_POST['tarikhMulaKerja'];
             $noGaji = $_POST['noGaji'];
@@ -93,10 +94,10 @@ class AhliController extends Controller
                 "email" => $email,
                 "noAkaunBank" => $noAkaunBank,
                 "jenisBank" => $jenisBank,
-                "carianPejabat" => $carianPejabat,
-                "carianPembayarGaji" => $carianPembayarGaji,
-                "jenisCarianPejabat" => $jenisCarianPejabat,
-                "jenisCarianPembayarGaji" => $jenisCarianPembayarGaji,
+                "cariP" => $cariP,
+                "cariPG" => $cariPG,
+                "jenisCariP" => $jenisCariP,
+                "jenisCariPG" => $jenisCariPG,
                 "jawatan" => $jawatan,
                 "tarikhMulaKerja" => $tarikMulaKerja,
                 "noGaji" => $noGaji,
@@ -145,6 +146,7 @@ class AhliController extends Controller
         $ahli->tarikhDaftar = $request->tarikhDaftar;
         $ahli->nama = $request->nama;
         $ahli->noKPBaru = $request->noKPBaru;
+        $ahli->noKPLama = $request->noKPLama;
         $ahli->jantina = $request->jantina;
         $ahli->bangsa = $request->bangsa;
         $ahli->agama = $request->agama;
@@ -189,10 +191,25 @@ class AhliController extends Controller
         $noTelefon->noKPBaru = $request->noKPBaru;
         $noTelefon->user_id = Auth::user()->id;
 
+        $pejabat = new ahli_syarikat();
+
+        $pejabat->noAhli = $request->noAhli;
+        $pejabat->cariP = $request->cariP;
+        $pejabat->cariPG = $request->cariPG;
+        $pejabat->jenisCariP = $request->jenisCariP;
+        $pejabat->jenisCariPG = $request->jenisCariPG;
+        $pejabat->nama = $request->nama;
+        $pejabat->noKPBaru = $request->noKPBaru;
+        $pejabat->noKPLama = $request->noKPLama;
+        $pejabat->jawatan = $request->jawatan;
+        $pejabat->pangkat = $request->pangkat;
+        $pejabat->user_id = Auth::user()->id;
+
         $ahli->save();
         $alamat->save();
         $bank->save();
         $noTelefon->save();
+        $pejabat->save();
 
         $noAhli = $_POST['noAhli'];
         $nama = $_POST['nama'];
@@ -285,17 +302,6 @@ class AhliController extends Controller
 
     public function padamAlamat($id)
     {
-        //$ahli = ahli_daftar::select('select'.$jenisAlamat,$alamat.'from ahli_daftars where id = ?',[$id]);
-        //$ahli = ahli_daftar::where("id", $id);
-        //$ahli = ahli_daftar::find($id);
-        //$ahli_daftars = $ahli->select('select jenisAlamat, alamat from ahli_daftars');
-        //$ahli_daftars->delete();
-        //return redirect()->route('maklumatAhliHasil');
-
-        /*$ahli = DB::table('ahli_daftars')
-        ->select('select jenisAlamat, alamat, poskod, bandar, negeri from ahli_daftars')
-        ->where("id", $id)->delete();*/
-
         $alamat = ahli_alamat::where("id", $id)->delete();
 
         return redirect()->route('maklumatAhli');
@@ -641,8 +647,6 @@ class AhliController extends Controller
         $carian = $_POST['carian'];
         $jenisCarian = $_POST['jenisCarian'];
 
-        //$ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
-
         $ahli = DB::table('ahli_daftars')
             ->join('ahli_berhentis', 'ahli_daftars.noKPBaru', '=', 'ahli_berhentis.noKPBaru')
             ->select(
@@ -658,9 +662,6 @@ class AhliController extends Controller
             )
             //->where($jenisCarian, 'LIKE', '%' . $carian . '%')
             ->get();
-
-            //$ahli = ahli::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
-            //$berhenti = berhenti::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
 
         return view('ahli.maklumatBerhenti2', compact('ahli'));
     }
@@ -702,6 +703,7 @@ class AhliController extends Controller
                 'ahli_daftars.noKPBaru',
                 'ahli_daftars.noKPLama',
             )
+            ->where('ahli_daftars.noKPBaru', $noKPBaru )
             ->first();
 
         return view('ahli.maklumatBerhentiUpdate')->with(compact('ahli'));
@@ -740,8 +742,6 @@ class AhliController extends Controller
     {
         $carian = $_POST['carian'];
 
-        //$ahli = ahli::where('noAhli', 'LIKE', '%' . $carian . '%')->get();
-
         $ahli = DB::table('ahli_daftars')
             ->join("ahli_berhentis", "ahli_berhentis.noAhli", "=", "ahli_daftars.noAhli")
             ->select(
@@ -753,7 +753,6 @@ class AhliController extends Controller
                 'ahli_berhentis.created_at',
                 'ahli_berhentis.updated_at',
             )
-            //->where('noAhli', 'LIKE', '%' . $carian . '%')
             ->get();
 
         return view('ahli.kelulusanPemberhentian2')->with(compact('ahli'));
@@ -776,6 +775,7 @@ class AhliController extends Controller
                 'ahli_berhentis.created_at',
                 'ahli_berhentis.updated_at',
             )
+            ->where('ahli_daftars.noKPBaru', $noKPBaru )
             ->first();
 
         return view('ahli.kelulusanPemberhentianEdit', compact('ahli'));

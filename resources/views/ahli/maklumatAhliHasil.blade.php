@@ -70,9 +70,9 @@
                                 Individu
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Daftar Individu</a>
+                                <li><a class="dropdown-item" href="{{ route('daftarIndividu') }}">Daftar Individu</a>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Maklumat Individu</a></li>
+                                <li><a class="dropdown-item" href="{{ route('maklumatIndividu') }}">Maklumat Individu</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -81,9 +81,9 @@
                                 Syarikat
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Daftar Syarikat</a>
+                                <li><a class="dropdown-item" href="{{ route('daftarSyarikat') }}">Daftar Syarikat</a>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Maklumat Syarikat</a></li>
+                                <li><a class="dropdown-item" href="{{ route('maklumatIndividu') }}">Maklumat Syarikat</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -538,20 +538,18 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="col-md-8" id="appear2" style="display: none">
+                    <div class="col-md-6" id="appear2" style="display: none">
                         <h4>Maklumat Perhubungan</h4>
                         <table class="table table-bordered table-striped">
                             <tr>
                                 <th scope="col">Jenis Maklumat Perhubungan</th>
                                 <th scope="col">Maklumat Perhubungan</th>
-                                <th scope="col">Telco</th>
                                 <th scope="col">Kemaskini</th>
                                 <th scope="col">Padam</th>
                             </tr>
                             <tr>
                                 <th scope="row">No Tel Rumah</th>
                                 <th>{{ $noTelefon->telRumah }}</th>
-                                <th></th>
                                 <th> <a id="edit_telR" class="btn btn-success btn-block">Kemaskini</a></th>
                                 <th><a href="{{ route('padamTelRAhli', $noTelefon->noKPBaru) }}"
                                         class="btn btn-danger btn-block">Padam</a></th>
@@ -559,7 +557,6 @@
                             <tr>
                                 <th scope="row">No Tel Pejabat</th>
                                 <th>{{ $noTelefon->telPejabat }}</th>
-                                <th></th>
                                 <th> <a id="edit_telP" class="btn btn-success btn-block">Kemaskini</a></th>
                                 <th><a href="{{ route('padamTelPAhli', $noTelefon->noKPBaru) }}"
                                     class="btn btn-danger btn-block">Padam</a></th>
@@ -567,7 +564,6 @@
                             <tr>
                                 <th scope="row">No Tel Bimbit</th>
                                 <th>{{ $noTelefon->telHP }}</th>
-                                <th></th>
                                 <th> <a id="edit_telHP" class="btn btn-success btn-block">Kemaskini</a></th>
                                 <th><a href="{{ route('padamTelHPAhli', $noTelefon->noKPBaru) }}"
                                     class="btn btn-danger btn-block">Padam</a></th>
@@ -575,7 +571,6 @@
                             <tr>
                                 <th scope="row">Faks</th>
                                 <th>{{ $noTelefon->faks }}</th>
-                                <th></th>
                                 <th> <a id="edit_faks" class="btn btn-success btn-block">Kemaskini</a></th>
                                 <th><a href="{{ route('padamFaksAhli', $noTelefon->noKPBaru) }}"
                                     class="btn btn-danger btn-block">Padam</a></th>
@@ -583,7 +578,6 @@
                             <tr>
                                 <th scope="row">E-mail</th>
                                 <th>{{ $noTelefon->email }}</th>
-                                <th></th>
                                 <th> <a id="edit_email" class="btn btn-success btn-block">Kemaskini</a></th>
                                 <th><a href="{{ route('padamEmailAhli', $noTelefon->noKPBaru) }}"
                                     class="btn btn-danger btn-block">Padam</a></th>
@@ -602,7 +596,6 @@
                                     <tr>
                                         <th scope="col">Jenis Maklumat Perhubungan</th>
                                         <th scope="col">Maklumat Perhubungan</th>
-                                        <th scope="col">Telco</th>
                                         <th scope="col">Kemaskini</th>
                                         <th scope="col">Batal</th>
                                     </tr>
@@ -611,16 +604,6 @@
                                         <th>
                                             <input type="text" name="telRumah" value="{{ $noTelefon->telRumah }}"
                                                 class="form-control">
-                                        </th>
-                                        <th>
-                                            <select name="telco" class="form-select">
-                                                <option value=""></option>
-                                                <option value="Maxis">Maxis</option>
-                                                <option value="Celcom">Celcom</option>
-                                                <option value="Digi">Digi</option>
-                                                <option value="U-Mobile">U-Mobile</option>
-                                                <option value="TuneTalk">Tune Talk</option>
-                                            </select>
                                         </th>
                                         <th> 
                                             <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
@@ -641,7 +624,6 @@
                                     <tr>
                                         <th scope="col">Jenis Maklumat Perhubungan</th>
                                         <th scope="col">Maklumat Perhubungan</th>
-                                        <th scope="col">Telco</th>
                                         <th scope="col">Kemaskini</th>
                                         <th scope="col">Batal</th>
                                     </tr>
@@ -651,16 +633,6 @@
                                         <th>
                                             <input type="text" name="telPejabat" value="{{ $noTelefon->telPejabat }}"
                                                 class="form-control">
-                                        </th>
-                                        <th>
-                                            <select name="telco" class="form-select">
-                                                <option value=""></option>
-                                                <option value="Maxis">Maxis</option>
-                                                <option value="Celcom">Celcom</option>
-                                                <option value="Digi">Digi</option>
-                                                <option value="U-Mobile">U-Mobile</option>
-                                                <option value="TuneTalk">Tune Talk</option>
-                                            </select>
                                         </th>
                                         <th> 
                                             <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
@@ -681,26 +653,14 @@
                                     <tr>
                                         <th scope="col">Jenis Maklumat Perhubungan</th>
                                         <th scope="col">Maklumat Perhubungan</th>
-                                        <th scope="col">Telco</th>
                                         <th scope="col">Kemaskini</th>
                                         <th scope="col">Batal</th>
                                     </tr>
                                     <tr>
-                                        {{-- <input type="hidden" name="noKPBaru" value="{{$noTelefon->noKPBaru}}"> --}}
                                         <th scope="row">No Tel Bimbit</th>
                                         <th>
                                             <input type="text" name="telHP" value="{{ $noTelefon->telHP }}"
                                                 class="form-control">
-                                        </th>
-                                        <th>
-                                            <select name="telco" class="form-select">
-                                                <option value=""></option>
-                                                <option value="Maxis">Maxis</option>
-                                                <option value="Celcom">Celcom</option>
-                                                <option value="Digi">Digi</option>
-                                                <option value="U-Mobile">U-Mobile</option>
-                                                <option value="TuneTalk">Tune Talk</option>
-                                            </select>
                                         </th>
                                         <th> 
                                             <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
@@ -721,7 +681,6 @@
                                     <tr>
                                         <th scope="col">Jenis Maklumat Perhubungan</th>
                                         <th scope="col">Maklumat Perhubungan</th>
-                                        <th scope="col">Telco</th>
                                         <th scope="col">Kemaskini</th>
                                         <th scope="col">Batal</th>
                                     </tr>
@@ -730,16 +689,6 @@
                                         <th>
                                             <input type="text" name="faks" value="{{ $noTelefon->faks }}"
                                                 class="form-control">
-                                        </th>
-                                        <th>
-                                            <select name="telco" class="form-select">
-                                                <option value=""></option>
-                                                <option value="Maxis">Maxis</option>
-                                                <option value="Celcom">Celcom</option>
-                                                <option value="Digi">Digi</option>
-                                                <option value="U-Mobile">U-Mobile</option>
-                                                <option value="TuneTalk">Tune Talk</option>
-                                            </select>
                                         </th>
                                         <th>
                                             <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
@@ -760,7 +709,6 @@
                                     <tr>
                                         <th scope="col">Jenis Maklumat Perhubungan</th>
                                         <th scope="col">Maklumat Perhubungan</th>
-                                        <th scope="col">Telco</th>
                                         <th scope="col">Kemaskini</th>
                                         <th scope="col">Batal</th>
                                     </tr>
@@ -769,16 +717,6 @@
                                         <th>
                                             <input type="text" name="email" value="{{ $noTelefon->email }}"
                                                 class="form-control">
-                                        </th>
-                                        <th>
-                                            <select name="telco" class="form-select">
-                                                <option value=""></option>
-                                                <option value="Maxis">Maxis</option>
-                                                <option value="Celcom">Celcom</option>
-                                                <option value="Digi">Digi</option>
-                                                <option value="U-Mobile">U-Mobile</option>
-                                                <option value="TuneTalk">Tune Talk</option>
-                                            </select>
                                         </th>
                                         <th>
                                             <button type="submit" class="btn btn-success btn-block">Kemaskini</button>

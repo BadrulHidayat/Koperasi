@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ahli_syarikat;
 use App\Models\kakitangan_alamat;
 use App\Models\kakitangan_bank;
 use App\Models\kakitangan_daftar;
@@ -49,10 +50,10 @@ class KakitanganController extends Controller
             $email = $_POST['email'];
             $noAkaunBank = $_POST['noAkaunBank'];
             $jenisBank = $_POST['jenisBank'];
-            $carianPejabat = $_POST['carianPejabat'];
-            $jenisCarianPejabat = $_POST['jenisCarianPejabat'];
-            $carianPembayarGaji = $_POST['carianPembayarGaji'];
-            $jenisCarianPembayarGaji = $_POST['jenisCarianPembayarGaji'];
+            $cariP = $_POST['cariP'];
+            $jenisCariP = $_POST['jenisCariP'];
+            $cariPG = $_POST['cariPG'];
+            $jenisCariPG = $_POST['jenisCariPG'];
             $bahagian = $_POST['bahagian'];
             $noStaff = $_POST['noStaff'];
             $jawatan = $_POST['jawatan'];
@@ -85,10 +86,10 @@ class KakitanganController extends Controller
                 "email" => $email,
                 "noAkaunBank" => $noAkaunBank,
                 "jenisBank" => $jenisBank,
-                "carianPejabat" => $carianPejabat,
-                "carianPembayarGaji" => $carianPembayarGaji,
-                "jenisCarianPejabat" => $jenisCarianPejabat,
-                "jenisCarianPembayarGaji" => $jenisCarianPembayarGaji,
+                "cariP" => $cariP,
+                "cariPG" => $cariPG,
+                "jenisCariP" => $jenisCariP,
+                "jenisCariPG" => $jenisCariPG,
                 "bahagian" => $bahagian,
                 "noStaff" => $noStaff,
                 "jawatan" => $jawatan,
@@ -200,12 +201,27 @@ class KakitanganController extends Controller
         $pendidikan->noKPBaru = $request->noKPBaru;
         $pendidikan->user_id = Auth::user()->id;
 
+        $pejabat = new ahli_syarikat();
+
+        $pejabat->noStaff = $request->noStaff;
+        $pejabat->cariP = $request->cariP;
+        $pejabat->cariPG = $request->cariPG;
+        $pejabat->jenisCariP = $request->jenisCariP;
+        $pejabat->jenisCariPG = $request->jenisCariPG;
+        $pejabat->nama = $request->nama;
+        $pejabat->noKPBaru = $request->noKPBaru;
+        $pejabat->noKPLama = $request->noKPLama;
+        $pejabat->jawatan = $request->jawatan;
+        $pejabat->pangkat = $request->pangkat;
+        $pejabat->user_id = Auth::user()->id;
+
         $staff->save();
         $alamat2->save();
         $bank2->save();
         $perhubungan->save();
         $pekerjaan->save();
         $pendidikan->save();
+        $pejabat->save();
 
         $noStaff = $_POST['noStaff'];
         $nama = $_POST['nama'];
@@ -253,11 +269,12 @@ class KakitanganController extends Controller
 
     public function maklumatStaffKemaskini(Request $request, $noKPBaru)
     {
-        $staff = kakitangan_daftar::where("noKPBaru", $noKPBaru)->get();
-        $pekerjaan = kakitangan_pekerjaan::where("noKPBaru", $noKPBaru)->get();
+        $staff = kakitangan_daftar::where("noKPBaru", $noKPBaru)->first();
+        $pekerjaan = kakitangan_pekerjaan::where("noKPBaru", $noKPBaru)->first();
 
         return view('kakitangan.maklumatStaffKemaskini', compact('staff', 'pekerjaan'));
     }
+
 
     public function kemaskiniStaff(Request $request, $noKPBaru)
     {

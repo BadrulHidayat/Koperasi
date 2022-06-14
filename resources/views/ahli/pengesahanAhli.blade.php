@@ -229,22 +229,22 @@
                     <table style="width: 50%">
                         <tr>
                             <th style="width: 30%">
-                                <label for="carianPejabat">{{ $jenisCarianPejabat }}</label>
+                                <label for="cariP">{{ $jenisCariP }}</label><input type="hidden" name="jenisCariP" value="{{$jenisCariP}}">
                             </th>
                             <td colspan="2">
-                                <input type="text" name="carianPejabat" class="form-control" value="{{$carianPejabat}}" style="color: red" readonly>
+                                <input type="text" name="cariP" class="form-control" value="{{$cariP}}" style="color: red" readonly>
                             </td>
                         </tr>
                     </table>
                     <br>
                     <h4>Maklumat Pembayar Gaji</h4>
-                    <table style="width: 50%">
+                    <table style="width: 50%"> 
                         <tr>
                             <th style="width: 30%">
-                                <label for="carianPembayarGaji">{{ $jenisCarianPembayarGaji }}</label>
+                                <label for="cariPG">{{ $jenisCariPG }}</label><input type="hidden" name="jenisCariPG" value="{{$jenisCariPG}}">
                             </th>
                             <td colspan="2">
-                                <input type="text" name="carianPembayarGaji" class="form-control" value="{{$carianPembayarGaji}}" style="color: red" readonly>
+                                <input type="text" name="cariPG" class="form-control" value="{{$cariPG}}" style="color: red" readonly>
                             </td>
                         </tr>
                     </table>

@@ -270,7 +270,7 @@
                         </table>
                         <br>
                         <button class="btn btn-primary" type="submit">Submit</button>
-                        <a href="{{route('maklumatAhliHasil')}}"><button class="btn btn-danger">Batal</button></a>
+                        <a href="{{route('maklumatAhli')}}"><button class="btn btn-danger">Batal</button></a>
                     </form>
                 </div>
             </div>

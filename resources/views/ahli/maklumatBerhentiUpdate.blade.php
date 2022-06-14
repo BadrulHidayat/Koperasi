@@ -3,7 +3,7 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <h2>Koperasi - Yuran Daftar</h2>
+            <h2>Koperasi - Maklumat Ahli Berhenti Daftar</h2>
 
             <div class="card">
                 <div class="card-body">

@@ -70,8 +70,8 @@
                                 Individu
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Daftar Individu</a></li>
-                                <li><a class="dropdown-item" href="#">Maklumat Individu</a></li>
+                                <li><a class="dropdown-item" href="{{ route('daftarIndividu') }}">Daftar Individu</a></li>
+                                <li><a class="dropdown-item" href="{{ route('maklumatIndividu') }}">Maklumat Individu</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -80,9 +80,9 @@
                                 Syarikat
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Daftar Syarikat</a>
+                                <li><a class="dropdown-item" href="{{ route('daftarSyarikat') }}">Daftar Syarikat</a>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Maklumat Syarikat</a></li>
+                                <li><a class="dropdown-item" href="{{ route('maklumatSyarikat') }}">Maklumat Syarikat</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

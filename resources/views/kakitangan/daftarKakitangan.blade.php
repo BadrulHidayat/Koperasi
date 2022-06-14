@@ -254,18 +254,18 @@
                         <table style="width: 50%">
                             <tr>
                                 <th style="width: 30%">
-                                    <label for="carianPejabat">Carian</label>
+                                    <label for="cariP">Carian</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="text" name="carianPejabat" class="form-control">
+                                    <input type="text" name="cariP" class="form-control">
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    <label for="jenisCarianPejabat">Kategori</label>
+                                    <label for="jenisCariP">Kategori</label>
                                 </th>
                                 <td>
-                                    <select name="jenisCarianPejabat" class="form-select">
+                                    <select name="jenisCariP" class="form-select">
                                         <option value="Kod">Kod</option>
                                         <option value="Nama">Nama</option>
                                     </select>
@@ -280,18 +280,18 @@
                         <table style="width:50%">
                             <tr>
                                 <th style="width: 30%">
-                                    <label for="carianPembayarGaji">Carian</label>
+                                    <label for="cariPG">Carian</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="text" name="carianPembayarGaji" class="form-control">
+                                    <input type="text" name="cariPG" class="form-control">
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    <label for="jenisCarianPembayarGaji">Kategori</label>
+                                    <label for="jenisCariPG">Kategori</label>
                                 </th>
                                 <td>
-                                    <select name="jenisCarianPembayarGaji" class="form-select">
+                                    <select name="jenisCariPG" class="form-select">
                                         <option value="Kod">Kod</option>
                                         <option value="Nama">Nama</option>
                                     </select>
