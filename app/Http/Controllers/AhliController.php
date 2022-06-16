@@ -250,14 +250,29 @@ class AhliController extends Controller
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
         $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil', compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+        return view('ahli.maklumatAhliHasil', compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat'));
     }
 
     public function maklumatAhliKemaskini(Request $request, $noKPBaru)
     {
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
+        $pejabat = ahli_syarikat::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliKemaskini', compact('ahli'));
+        return view('ahli.maklumatAhliKemaskini', compact('ahli', 'pejabat'));
     }
 
     public function kemaskiniAhli(Request $request, $noKPBaru)
@@ -290,10 +305,6 @@ class AhliController extends Controller
         $alamat = ahli_alamat::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
         $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
-
-        //$message = "Kemaskini Berjaya";
-
-        //return redirect()->route('maklumatAhliHasil', compact('ahli'))->with(['message' => 'Kemaskini Berjaya.']);
 
         return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
 
@@ -553,6 +564,11 @@ class AhliController extends Controller
         return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
     }
 
+    public function daftarWaris(Request $request, $noKPBaru)
+    {
+        $waris = new ahli_individus();
+    }
+
     public function daftarYuran()
     {
         return view('ahli.daftarYuran');
@@ -660,7 +676,6 @@ class AhliController extends Controller
                 'ahli_berhentis.created_at',
                 'ahli_berhentis.updated_at',
             )
-            //->where($jenisCarian, 'LIKE', '%' . $carian . '%')
             ->get();
 
         return view('ahli.maklumatBerhenti2', compact('ahli'));

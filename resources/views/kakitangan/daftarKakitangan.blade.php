@@ -297,7 +297,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <button type="submit" class="btn btn-secondary">Cari</button>
+                                    <button class="btn btn-secondary">Cari</button>
                                 </td>
                             </tr>
                         </table>
