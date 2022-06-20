@@ -6,6 +6,7 @@ use App\Models\ahli_daftar;
 use App\Models\ahli_alamat;
 use App\Models\ahli_bank;
 use App\Models\ahli_berhenti;
+use App\Models\ahli_individu;
 use App\Models\ahli_perhubungan;
 use App\Models\ahli_syarikat;
 use Illuminate\Http\Request;
@@ -239,7 +240,7 @@ class AhliController extends Controller
         $jenisCarian = $_POST['jenisCarian'];
 
         $ahli = ahli_daftar::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
-        
+
         return view('ahli.maklumatAhli2', compact('ahli'));
     }
 
@@ -264,7 +265,41 @@ class AhliController extends Controller
             ->where('ahli_syarikats.noKPBaru', $noKPBaru)
             ->get();
 
-        return view('ahli.maklumatAhliHasil', compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat'));
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+        $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.noKPBaru',
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+        //@dd($waris);
+
+        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function maklumatAhliKemaskini(Request $request, $noKPBaru)
@@ -302,20 +337,124 @@ class AhliController extends Controller
 
         $ahli->save();
 
+        $pejabat = ahli_syarikat::where("noKPBaru", $noKPBaru)->first();
+
+        $pejabat->noAhli = $request->noAhli;
+        $pejabat->cariP = $request->cariP;
+        $pejabat->cariPG = $request->cariPG;
+        $pejabat->jenisCariP = $request->jenisCariP;
+        $pejabat->jenisCariPG = $request->jenisCariPG;
+        $pejabat->noKPBaru = $request->noKPBaru;
+
+        $pejabat->save();
+
         $alamat = ahli_alamat::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
         $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
 
+        $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
 
+        $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.noKPBaru',
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
-    public function padamAlamat($id)
+    public function padamAlamat($noKPBaru)
     {
-        $alamat = ahli_alamat::where("id", $id)->delete();
+        $alamat = ahli_alamat::where('noKPBaru', $noKPBaru)->delete();
 
-        return redirect()->route('maklumatAhli');
+        $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
+        $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
+        $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
+
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function updateAlamat(Request $request, $noKPBaru)
@@ -336,7 +475,52 @@ class AhliController extends Controller
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
         $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function daftarAlamat(Request $request, $noKPBaru)
@@ -358,7 +542,52 @@ class AhliController extends Controller
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
         $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function updateTelR(Request $request, $noKPBaru)
@@ -373,7 +602,52 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function updateTelP(Request $request, $noKPBaru)
@@ -388,7 +662,52 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function updateTelHP(Request $request, $noKPBaru)
@@ -403,7 +722,52 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function updatefaks(Request $request, $noKPBaru)
@@ -418,7 +782,52 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function updateEmail(Request $request, $noKPBaru)
@@ -433,14 +842,59 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'))->with(['message' => 'Kemaskini Berjaya.']);
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'))->with(['message' => 'Kemaskini Berjaya.']);
     }
 
     public function padamTelRAhli(Request $request, $noKPBaru)
     {
         $noTelefon = ahli_perhubungan::where('noKPBaru', $noKPBaru)->first();
 
-        $reset=" ";
+        $reset = " ";
         $noTelefon->telRumah = $request->$reset;
 
         $noTelefon->save();
@@ -449,14 +903,59 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'))->with(['message' => 'Padam no telefon Pejabat Berjaya.']);
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'))->with(['message' => 'Padam no telefon Pejabat Berjaya.']);
     }
 
     public function padamTelPAhli(Request $request, $noKPBaru)
     {
         $noTelefon = ahli_perhubungan::where('noKPBaru', $noKPBaru)->first();
 
-        $reset=" ";
+        $reset = " ";
         $noTelefon->telPejabat = $request->$reset;
 
         $noTelefon->save();
@@ -465,14 +964,59 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'))->with(['message' => 'Padam no telefon Pejabat Berjaya.']);
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'))->with(['message' => 'Padam no telefon Pejabat Berjaya.']);
     }
 
     public function padamTelHPAhli(Request $request, $noKPBaru)
     {
         $noTelefon = ahli_perhubungan::where('noKPBaru', $noKPBaru)->first();
 
-        $reset=" ";
+        $reset = " ";
         $noTelefon->telHP = $request->$reset;
 
         $noTelefon->save();
@@ -481,14 +1025,59 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'))->with(['message' => 'Padam no telefon Pejabat Berjaya.']);
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'))->with(['message' => 'Padam no telefon Pejabat Berjaya.']);
     }
 
     public function padamFaksAhli(Request $request, $noKPBaru)
     {
         $noTelefon = ahli_perhubungan::where('noKPBaru', $noKPBaru)->first();
 
-        $reset=" ";
+        $reset = " ";
         $noTelefon->faks = $request->$reset;
 
         $noTelefon->save();
@@ -497,14 +1086,59 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'))->with(['message' => 'Padam no telefon Pejabat Berjaya.']);
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'))->with(['message' => 'Padam no telefon Pejabat Berjaya.']);
     }
 
     public function padamEmailAhli(Request $request, $noKPBaru)
     {
         $noTelefon = ahli_perhubungan::where('noKPBaru', $noKPBaru)->first();
 
-        $reset=" ";
+        $reset = " ";
         $noTelefon->email = $request->$reset;
 
         $noTelefon->save();
@@ -513,7 +1147,52 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'))->with(['message' => 'Padam no telefon Pejabat Berjaya.']);
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'))->with(['message' => 'Padam no telefon Pejabat Berjaya.']);
     }
 
     public function updateBank(Request $request, $noKPBaru)
@@ -531,7 +1210,52 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function padamBankAhli($noKPBaru)
@@ -542,7 +1266,52 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function daftarBank(Request $request, $noKPBaru)
@@ -561,12 +1330,248 @@ class AhliController extends Controller
         $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
         $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
 
-        return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon'));
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function daftarWaris(Request $request, $noKPBaru)
     {
-        $waris = new ahli_individus();
+        $waris = new ahli_individu();
+
+        $waris->noAhli = $request->noAhli;
+        $waris->noKPBaru = $request->noKPBaru;
+        $waris->cariIndi = $request->cariIndi;
+        $waris->jenisCariIndi = $request->jenisCariIndi;
+        $waris->jenisHubungan = $request->jenisHubungan;
+        $waris->pewaris = $request->pewaris;
+        $waris->pemegangWasiat = $request->pemegangWasiat;
+        $waris->pembahagian = $request->pembahagian;
+        $waris->user_id = Auth::user()->id;
+
+        $waris->save();
+
+        $alamat = ahli_alamat::where("noKPBaru", $noKPBaru)->first();
+        $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
+        $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
+        $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
+
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+        $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.noKPBaru',
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
+    }
+
+    public function updateWaris(Request $request, $noKPBaru)
+    {
+        $waris = ahli_individu::where("noKPBaru", $noKPBaru)->first();
+
+        $waris->noAhli = $request->noAhli;
+        $waris->noKPBaru = $request->noKPBaru;
+        $waris->cariIndi = $request->cariIndi;
+        $waris->jenisCariIndi = $request->jenisCariIndi;
+        $waris->jenisHubungan = $request->jenisHubungan;
+        $waris->pewaris = $request->pewaris;
+        $waris->pemegangWasiat = $request->pemegangWasiat;
+        $waris->pembahagian = $request->pembahagian;
+
+        $waris->save();
+
+        $alamat = ahli_alamat::where("noKPBaru", $noKPBaru)->first();
+        $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
+        $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
+        $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
+
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+        $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.noKPBaru',
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
+    }
+
+    public function padamWarisAhli(Request $request, $noKPBaru)
+    {
+        $waris = ahli_individu::where("noKPBaru", $noKPBaru)->delete();
+
+        $alamat = ahli_alamat::where("noKPBaru", $noKPBaru)->first();
+        $ahli = ahli_daftar::where("noKPBaru", $noKPBaru)->first();
+        $noTelefon = ahli_perhubungan::where("noKPBaru", $noKPBaru)->first();
+        $bank = ahli_bank::where("noKPBaru", $noKPBaru)->first();
+
+        $pejabat = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariP')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+            $pembayarGaji = DB::table('syarikat_daftars')
+            ->join('ahli_syarikats', 'syarikat_daftars.kod_jabatan', '=', 'ahli_syarikats.cariPG')
+            ->join('syarikat_alamats', 'syarikat_daftars.id', '=', 'syarikat_alamats.id')
+            ->select(
+                'syarikat_daftars.kod_jabatan',
+                'syarikat_daftars.nama_jabatan',
+                'syarikat_alamats.alamat',
+                'syarikat_alamats.poskod',
+                'syarikat_alamats.daerah',
+                'syarikat_alamats.negeri',
+            )
+            ->where('ahli_syarikats.noKPBaru', $noKPBaru)
+            ->get();
+
+        $waris = DB::table('ahli_individus')
+            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
+            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+            ->select(
+                'ahli_individus.cariIndi',
+                'ahli_individus.jenisCariIndi',
+                'ahli_individus.jenisHubungan',
+                'ahli_individus.pewaris',
+                'ahli_individus.pemegangWasiat',
+                'ahli_individus.pembahagian',
+                'individu_daftars.nama',
+                'individu_daftars.noKP',
+                'individu_daftars.jantina',
+            )
+            ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first();
+
+            return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
     }
 
     public function daftarYuran()
@@ -684,19 +1689,19 @@ class AhliController extends Controller
     public function maklumatBerhenti2()
     {
         $ahli = DB::table('ahli_daftars')
-        ->join('ahli_berhentis', 'ahli_daftars.noKPBaru', '=', 'ahli_berhentis.noKPBaru')
-        ->select(
-            'ahli_daftars.noAhli',
-            'ahli_daftars.nama',
-            'ahli_daftars.noKPBaru',
-            'ahli_berhentis.id',
-            'ahli_berhentis.tarikhMohon',
-            'ahli_berhentis.statusBerhenti',
-            'ahli_berhentis.sebabBerhenti',
-            'ahli_berhentis.created_at',
-            'ahli_berhentis.updated_at',
-        )
-        ->get();
+            ->join('ahli_berhentis', 'ahli_daftars.noKPBaru', '=', 'ahli_berhentis.noKPBaru')
+            ->select(
+                'ahli_daftars.noAhli',
+                'ahli_daftars.nama',
+                'ahli_daftars.noKPBaru',
+                'ahli_berhentis.id',
+                'ahli_berhentis.tarikhMohon',
+                'ahli_berhentis.statusBerhenti',
+                'ahli_berhentis.sebabBerhenti',
+                'ahli_berhentis.created_at',
+                'ahli_berhentis.updated_at',
+            )
+            ->get();
 
         return view('ahli.maklumatBerhenti2', compact('ahli'));
     }
@@ -718,7 +1723,7 @@ class AhliController extends Controller
                 'ahli_daftars.noKPBaru',
                 'ahli_daftars.noKPLama',
             )
-            ->where('ahli_daftars.noKPBaru', $noKPBaru )
+            ->where('ahli_daftars.noKPBaru', $noKPBaru)
             ->first();
 
         return view('ahli.maklumatBerhentiUpdate')->with(compact('ahli'));
@@ -790,7 +1795,7 @@ class AhliController extends Controller
                 'ahli_berhentis.created_at',
                 'ahli_berhentis.updated_at',
             )
-            ->where('ahli_daftars.noKPBaru', $noKPBaru )
+            ->where('ahli_daftars.noKPBaru', $noKPBaru)
             ->first();
 
         return view('ahli.kelulusanPemberhentianEdit', compact('ahli'));

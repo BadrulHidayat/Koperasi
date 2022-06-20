@@ -974,6 +974,249 @@
                         </div>
                         @endif
                     </div>
+
+                    <div class="card-body">
+                        <div class="col-md-12" id="appear_saudara" style="display: none">
+                            <h4>Maklumat Saudara / Mara</h4>
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <th scope="col">Hubungan</th>
+                                    <th scope="col">Pewaris</th>
+                                    <th scope="col">Penerima Wasiat</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">No K/P Baru</th>
+                                    <th scope="col">No K/P Lama</th>
+                                    <th scope="col">Kemaskini</th>
+                                    <th scope="col">Padam</th>
+                                </tr>
+                                @if ($saudara == true)
+                                <tr>
+                                    <th scope="row">{{$saudara->jenisHubungan}}</th>
+                                    <th>{{$saudara->pewaris}}</th>
+                                    <th>{{$saudara->pemegangWasiat}}</th>
+                                    <th>{{$saudara->nama}}</th>
+                                    <th>{{$saudara->noKP}}</th>
+                                    <th></th>
+                                    <th><a id="edit_saudara" class="btn btn-success btn-block">Kemaskini</a></th>
+                                    <th><a href="{{route('padamSaudara', $staff->noKPBaru)}}" class="btn btn-danger btn-block">Padam</a></th>
+                                </tr>
+                                @endif
+                            </table>
+                            <button id="daftar_saudara" class="btn btn-primary">Daftar Saudara / Mara</button>
+                            <button id="closeSaudara" class="btn btn-danger">Close</button>
+                        </div>
+    
+                        <br>
+    
+                        @if ($saudara == true)
+                        <div class="col-md-12" id="appearEditSaudara" style="display: none">
+                            <form action="{{ route('updateSaudara', $staff->noKPBaru) }}" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <h4>Carian</h4>
+                                <table>
+                                    <input type="hidden" name="noStaff" value="{{ $staff->noStaff }}">
+                                    <tr>
+                                        <th>Carian Individu</th>
+                                        <td>
+                                            <input type="text" name="cariIndi" class="form-control" value="{{$saudara->cariIndi}}">
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('daftarIndividu') }}" class="btn btn-primary">Daftar Individu</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Jenis Carian</th>
+                                        <td>
+                                            <select name="jenisCariIndi" class="form-select">
+                                                <option value="{{$saudara->jenisCariIndi}}">{{$saudara->jenisCariIndi}}</option>
+                                                <option value="No Ahli">No Ahli</option>
+                                                <option value="No KP">No KP</option>
+                                                <option value="No KP Lama">No KP Lama</option>
+                                                <option value="Nama">Nama</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <button class="btn btn-secondary btn-block">Cari</button>
+                                        </th>
+                                    </tr>
+                                </table>
+    
+                                <br>
+    
+                                <table style="width:30%">
+                                    <tr>
+                                        <th style="width: 40%">Hubungan</th>
+                                        <td>
+                                            <select name="jenisHubungan" class="form-select">
+                                                <option value="{{$saudara->jenisHubungan}}">{{$saudara->jenisHubungan}}</option>
+                                                <option value="SUAMI">Suami</option>
+                                                <option value="ISTERI">Isteri</option>
+                                                <option value="IBU">Ibu</option>
+                                                <option value="BAPA">Bapa</option>
+                                                <option value="ABANG">Abang</option>
+                                                <option value="KAKAK">Kakak</option>
+                                                <option value="ADIK">Adik</option>
+                                                <option value="ANAK">Anak</option>
+                                                <option value="BAPA SAUDARA">Bapa Saudara</option>
+                                                <option value="IBU SAUDARA">Ibu Saudara</option>
+                                                <option value="ANAK SAUDARA">Anak Saudara</option>
+                                                <option value="SEPUPU">Sepupu</option>
+                                                <option value="CUCU">Cucu</option>
+                                                <option value="ABANG IPAR">Abang Ipar</option>
+                                                <option value="KAKAK IPAR">Kakak Ipar</option>
+                                                <option value="ADIK IPAR">Adik Ipar</option>
+                                                <option value="TUNANG">Tunang</option>
+                                                <option value="WAKIL WARITH">Wakil Warith</option>
+                                                <option value="SAHABAT QARIB">Sahabat Qarib</option>
+                                                <option value="LAIN-LAIN">Lain-lain</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 30%">
+                                    <tr>
+                                        <th style="width: 40%">
+                                            <label>Pewaris</label>
+                                        </th>
+                                        <td>
+                                            <label><input type="radio" name="pewaris" value="Ya" class="form-check-input" <?php if ($saudara->pewaris == "Ya") echo "checked" ?>>Ya</label>
+                                        </td>
+                                        <td>
+                                            <label><input type="radio" name="pewaris" value="Tidak" class="form-check-input" <?php if ($saudara->pewaris == "Tidak") echo "checked" ?>>Tidak</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 30%">
+                                    <tr>
+                                        <th style="width: 40%">
+                                            <label>Pemegang Wasiat</label>
+                                        </th>
+                                        <td>
+                                            <label><input type="radio" name="pemegangWasiat" value="Ya" class="form-check-input" <?php if ($saudara->pemegangWasiat == "Ya") echo "checked" ?>>Ya</label>
+                                        </td>
+                                        <td>
+                                            <label><input type="radio" name="pemegangWasiat" value="Tidak" class="form-check-input" <?php if ($saudara->pemegangWasiat == "Tidak") echo "checked" ?>>Tidak</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <br>
+                                
+                                <button type="submit" class="btn btn-primary btn-block">Kemaskini Saudaara / Mara</button>
+                            </form>
+                            <br>
+                            <button id="closeEditSaudara" class="btn btn-danger">Close</button>
+                        </div>
+                        @endif
+    
+                        <br>
+    
+                        @if ($saudara == false)
+                        <div class="col-md-12" id="appearDaftarSaudara" style="display: none">
+                            <form action="{{ route('daftarSaudara', $staff->noKPBaru) }}" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <h4>Carian</h4>
+                                <table>
+                                    <input type="hidden" name="noStaff" value="{{ $staff->noStaff }}">
+                                    <tr>
+                                        <th>Carian Individu</th>
+                                        <td>
+                                            <input type="text" name="cariIndi" class="form-control">
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('daftarIndividu') }}" class="btn btn-primary">Daftar
+                                                Individu</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Jenis Carian</th>
+                                        <td>
+                                            <select name="jenisCariIndi" class="form-select">
+                                                <option value="Pilih satu">Pilih satu</option>
+                                                <option value="No Ahli">No Ahli</option>
+                                                <option value="No KP">No KP</option>
+                                                <option value="No KP Lama">No KP Lama</option>
+                                                <option value="Nama">Nama</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <button class="btn btn-secondary btn-block">Cari</button>
+                                        </th>
+                                    </tr>
+                                </table>
+    
+                                <br>
+    
+                                <table style="width:30%">
+                                    <tr>
+                                        <th style="width: 40%">Hubungan</th>
+                                        <td>
+                                            <select name="jenisHubungan" class="form-select">
+                                                <option value="Pilih satu">Pilih satu</option>
+                                                <option value="SUAMI">Suami</option>
+                                                <option value="ISTERI">Isteri</option>
+                                                <option value="IBU">Ibu</option>
+                                                <option value="BAPA">Bapa</option>
+                                                <option value="ABANG">Abang</option>
+                                                <option value="KAKAK">Kakak</option>
+                                                <option value="ADIK">Adik</option>
+                                                <option value="ANAK">Anak</option>
+                                                <option value="BAPA SAUDARA">Bapa Saudara</option>
+                                                <option value="IBU SAUDARA">Ibu Saudara</option>
+                                                <option value="ANAK SAUDARA">Anak Saudara</option>
+                                                <option value="SEPUPU">Sepupu</option>
+                                                <option value="CUCU">Cucu</option>
+                                                <option value="ABANG IPAR">Abang Ipar</option>
+                                                <option value="KAKAK IPAR">Kakak Ipar</option>
+                                                <option value="ADIK IPAR">Adik Ipar</option>
+                                                <option value="TUNANG">Tunang</option>
+                                                <option value="WAKIL WARITH">Wakil Warith</option>
+                                                <option value="SAHABAT QARIB">Sahabat Qarib</option>
+                                                <option value="LAIN-LAIN">Lain-lain</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 30%">
+                                    <tr>
+                                        <th style="width: 40%">
+                                            <label>Pewaris</label>
+                                        </th>
+                                        <td>
+                                            <label><input type="radio" name="pewaris" value="Ya" class="form-check-input">Ya</label>
+                                        </td>
+                                        <td>
+                                            <label><input type="radio" name="pewaris" value="Tidak" class="form-check-input">Tidak</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 30%">
+                                    <tr>
+                                        <th style="width: 40%">
+                                            <label>Pemegang Wasiat</label>
+                                        </th>
+                                        <td>
+                                            <label><input type="radio" name="pemegangWasiat" value="Ya" class="form-check-input">Ya</label>
+                                        </td>
+                                        <td>
+                                            <label><input type="radio" name="pemegangWasiat" value="Tidak" class="form-check-input">Tidak</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <br>
+                                
+                                <button type="submit" class="btn btn-primary btn-block">Daftar Saudara / Mara</button>
+                            </form>
+                            <br>
+                            <button id="closeDaftarSaudara" class="btn btn-danger">Close</button>
+                        </div>
+                        @endif
+                    </div>
                 </div>
             </div>
 
@@ -1072,6 +1315,24 @@
             }
         );
 
+        $("#btn_saudara").click(
+            function() {
+                $("#appear_saudara").show();
+            }
+        );
+
+        $("#edit_saudara").click(
+            function() {
+                $("#appearEditSaudara").show();
+            }
+        );
+
+        $("#daftar_saudara").click(
+            function() {
+                $("#appearDaftarSaudara").show();
+            }
+        );
+
         $("#closeAlamat").click(
             function() {
                 $("#appearAlamat").hide();
@@ -1162,6 +1423,23 @@
             }
         );
 
+        $("#closeSaudara").click(
+            function() {
+                $("#appear_saudara").hide();
+            }
+        );
+
+        $("#closeEditSaudara").click(
+            function() {
+                $("#appearEditSaudara").hide();
+            }
+        );
+
+        $("#closeDaftarSaudara").click(
+            function() {
+                $("#appearDaftarSaudara").hide();
+            }
+        );
     </script>
 
     <script src="{{ asset('public/js/app.js') }}" defer></script>

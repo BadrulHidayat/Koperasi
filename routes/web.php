@@ -59,6 +59,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('ahli/padamBankAhli/{noKPBaru}', 'App\Http\Controllers\AhliController@padamBankAhli')->name('padamBankAhli');
         Route::post('ahli/daftarBank/{noKPBaru}', 'App\Http\Controllers\AhliController@daftarBank')->name('daftarBank');
 
+        //Route tanggungan Waris ahli
+        Route::post('ahli/daftarWaris/{noKPBaru}', 'App\Http\Controllers\AhliController@daftarWaris')->name('daftarWaris');
+        Route::post('ahli/updateWaris/{noKPBaru}', 'App\Http\Controllers\AhliController@updateWaris')->name('updateWaris');
+        Route::get('ahli/padamWarisAhli/{noKPBaru}', 'App\Http\Controllers\AhliController@padamWarisAhli')->name('padamWarisAhli');
+        
         //Route yuran ahli
         Route::get('ahli/daftarYuran', 'App\Http\Controllers\AhliController@daftarYuran')->name('daftarYuran');
         Route::get('ahli/daftarYuran2', 'App\Http\Controllers\AhliController@daftarYuran2')->name('daftarYuran2');
@@ -130,6 +135,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('kakitangan/updatePendidikanStaff/{noKPBaru}', 'App\Http\Controllers\KakitanganController@updatePendidikanStaff')->name('updatePendidikanStaff');
         Route::get('kakitangan/padamPendidikanStaff/{noKPBaru}', 'App\Http\Controllers\KakitanganController@padamPendidikanStaff')->name('padamPendidikanStaff');
         Route::post('kakitangan/daftarPendidikanStaff/{noKPBaru}', 'App\Http\Controllers\KakitanganController@daftarPendidikanStaff')->name('daftarPendidikanStaff');
+
+        //Route saudara kakitangan
+        Route::post('kakitangan/daftarSaudara/{noKPBaru}', 'App\Http\Controllers\KakitanganController@daftarSaudara')->name('daftarSaudara');
+        Route::post('kakitangan/updateSaudara/{noKPBaru}', 'App\Http\Controllers\KakitanganController@updateSaudara')->name('updateSaudara');
+        Route::get('kakitangan/padamSaudara/{noKPBaru}', 'App\Http\Controllers\KakitanganController@padamSaudara')->name('padamSaudara');
 
         //Route daftar individu
         Route::get('individu/daftarIndividu', 'App\Http\Controllers\IndividuController@daftarIndividu')->name('daftarIndividu');

@@ -549,7 +549,7 @@
                                 <th scope="col">Alamat</th>
 
                             </tr>
-                            @foreach ($pejabat as $info)
+                            @foreach ($pembayarGaji as $info)
                                 <tr>
                                     <th scope="row">{{ $info->kod_jabatan }}</th>
                                     <th>{{ $info->nama_jabatan }}</th>
@@ -946,19 +946,21 @@
                                 <th scope="col">Kemaskini</th>
                                 <th scope="col">Padam</th>
                             </tr>
+                            @if ($waris == true)
                             <tr>
-                                <th scope="row"></th>
+                                <th scope="row">{{$waris->jenisHubungan}}</th>
+                                <th>{{$waris->pewaris}}</th>
+                                <th>{{$waris->pemegangWasiat}}</th>
+                                <th>{{$waris->pembahagian}}</th>
+                                <th>{{$waris->nama}}</th>
+                                <th>{{$waris->noKP}}</th>
                                 <th></th>
+                                <th>{{$waris->jantina}}</th>
                                 <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th><a href="" class="btn btn-success btn-block">Kemaskini</a></th>
-                                <th><a href="" class="btn btn-danger btn-block">Padam</a></th>
+                                <th><a id="edit_waris" class="btn btn-success btn-block">Kemaskini</a></th>
+                                <th><a href="{{route('padamWarisAhli', $waris->noKPBaru)}}" class="btn btn-danger btn-block">Padam</a></th>
                             </tr>
+                            @endif
                         </table>
                         <button id="daftarWaris" class="btn btn-primary">Daftar Tanggungan Waris</button>
                         <button id="close4" class="btn btn-danger">Close</button>
@@ -966,11 +968,126 @@
 
                     <br>
 
-                    <div class="col-md-12" id="appearDaftarWaris" style="display: none">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                    @if ($waris == true)
+                    <div class="col-md-12" id="appearEditWaris" style="display: none">
+                        <form action="{{ route('updateWaris', $ahli->noKPBaru) }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <h4>Carian</h4>
                             <table>
+                                <input type="hidden" name="noAhli" value="{{ $ahli->noAhli }}">
+                                <tr>
+                                    <th>Carian Individu</th>
+                                    <td>
+                                        <input type="text" name="cariIndi" class="form-control" value="{{$waris->cariIndi}}">
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('daftarIndividu') }}" class="btn btn-primary">Daftar Individu</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Jenis Carian</th>
+                                    <td>
+                                        <select name="jenisCariIndi" class="form-select">
+                                            <option value="{{$waris->jenisCariIndi}}">{{$waris->jenisCariIndi}}</option>
+                                            <option value="No Ahli">No Ahli</option>
+                                            <option value="No KP">No KP</option>
+                                            <option value="No KP Lama">No KP Lama</option>
+                                            <option value="Nama">Nama</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <button class="btn btn-secondary btn-block">Cari</button>
+                                    </th>
+                                </tr>
+                            </table>
+
+                            <br>
+
+                            <table style="width:30%">
+                                <tr>
+                                    <th style="width: 40%">Hubungan</th>
+                                    <td>
+                                        <select name="jenisHubungan" class="form-select">
+                                            <option value="{{$waris->jenisHubungan}}">{{$waris->jenisHubungan}}</option>
+                                            <option value="SUAMI">Suami</option>
+                                            <option value="ISTERI">Isteri</option>
+                                            <option value="IBU">Ibu</option>
+                                            <option value="BAPA">Bapa</option>
+                                            <option value="ABANG">Abang</option>
+                                            <option value="KAKAK">Kakak</option>
+                                            <option value="ADIK">Adik</option>
+                                            <option value="ANAK">Anak</option>
+                                            <option value="BAPA SAUDARA">Bapa Saudara</option>
+                                            <option value="IBU SAUDARA">Ibu Saudara</option>
+                                            <option value="ANAK SAUDARA">Anak Saudara</option>
+                                            <option value="SEPUPU">Sepupu</option>
+                                            <option value="CUCU">Cucu</option>
+                                            <option value="ABANG IPAR">Abang Ipar</option>
+                                            <option value="KAKAK IPAR">Kakak Ipar</option>
+                                            <option value="ADIK IPAR">Adik Ipar</option>
+                                            <option value="TUNANG">Tunang</option>
+                                            <option value="WAKIL WARITH">Wakil Warith</option>
+                                            <option value="SAHABAT QARIB">Sahabat Qarib</option>
+                                            <option value="LAIN-LAIN">Lain-lain</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="width: 30%">
+                                <tr>
+                                    <th style="width: 40%">
+                                        <label>Pewaris</label>
+                                    </th>
+                                    <td>
+                                        <label><input type="radio" name="pewaris" value="Ya" class="form-check-input" <?php if ($waris->pewaris == "Ya") echo "checked" ?>>Ya</label>
+                                    </td>
+                                    <td>
+                                        <label><input type="radio" name="pewaris" value="Tidak" class="form-check-input" <?php if ($waris->pewaris == "Tidak") echo "checked" ?>>Tidak</label>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="width: 30%">
+                                <tr>
+                                    <th style="width: 40%">
+                                        <label>Pemegang Wasiat</label>
+                                    </th>
+                                    <td>
+                                        <label><input type="radio" name="pemegangWasiat" value="Ya" class="form-check-input" <?php if ($waris->pemegangWasiat == "Ya") echo "checked" ?>>Ya</label>
+                                    </td>
+                                    <td>
+                                        <label><input type="radio" name="pemegangWasiat" value="Tidak" class="form-check-input" <?php if ($waris->pemegangWasiat == "Tidak") echo "checked" ?>>Tidak</label>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="width: 30%">
+                                <tr>
+                                    <th style="width: 40%">Pembahagian (%)</th>
+                                    <td>
+                                        <input type="text" name="pembahagian" class="form-control" value="{{$waris->pembahagian }}">
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <br>
+                            
+                            <button type="submit" class="btn btn-primary btn-block">Kemaskini Tanggungan Waris</button>
+                        </form>
+                        <br>
+                        <button id="closeEditWaris" class="btn btn-danger">Close</button>
+                    </div>
+                    @endif
+
+                    <br>
+
+                    @if ($waris == false)
+                    <div class="col-md-12" id="appearDaftarWaris" style="display: none">
+                        <form action="{{ route('daftarWaris', $ahli->noKPBaru) }}" method="POST" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <h4>Carian</h4>
+                            <table>
+                                <input type="hidden" name="noAhli" value="{{ $ahli->noAhli }}">
                                 <tr>
                                     <th>Carian Individu</th>
                                     <td>
@@ -1002,10 +1119,10 @@
 
                             <br>
 
-                            <table style="width: 40%">
+                            <table style="width:30%">
                                 <tr>
-                                    <th style="width: 25%">Hubungan</th>
-                                    <td style="width: 25%">
+                                    <th style="width: 40%">Hubungan</th>
+                                    <td>
                                         <select name="jenisHubungan" class="form-select">
                                             <option value="Pilih satu">Pilih satu</option>
                                             <option value="SUAMI">Suami</option>
@@ -1030,26 +1147,38 @@
                                             <option value="LAIN-LAIN">Lain-lain</option>
                                         </select>
                                     </td>
-                                    <td style="width: 20%">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="pewaris" name="pewaris" id="pewaris">
-                                            <label class="form-check-label" for="pewaris">
-                                                Pewaris
-                                            </label>
-                                        </div>
+                                </tr>
+                            </table>
+                            <table style="width: 30%">
+                                <tr>
+                                    <th style="width: 40%">
+                                        <label>Pewaris</label>
+                                    </th>
+                                    <td>
+                                        <label><input type="radio" name="pewaris" value="Ya" class="form-check-input">Ya</label>
                                     </td>
-                                    <td style="width: 30%">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="pemegangWasiat" name="pemegangWasiat" id="pemegangWasiat">
-                                            <label class="form-check-label" for="pemegangWasiat">
-                                                Pemegang Wasiat
-                                            </label>
-                                        </div>
+                                    <td>
+                                        <label><input type="radio" name="pewaris" value="Tidak" class="form-check-input">Tidak</label>
                                     </td>
                                 </tr>
+                            </table>
+                            <table style="width: 30%">
                                 <tr>
-                                    <th>Pembahagian (%)</th>
-                                    <td colspan="2">
+                                    <th style="width: 40%">
+                                        <label>Pemegang Wasiat</label>
+                                    </th>
+                                    <td>
+                                        <label><input type="radio" name="pemegangWasiat" value="Ya" class="form-check-input">Ya</label>
+                                    </td>
+                                    <td>
+                                        <label><input type="radio" name="pemegangWasiat" value="Tidak" class="form-check-input">Tidak</label>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="width: 30%">
+                                <tr>
+                                    <th style="width: 40%">Pembahagian (%)</th>
+                                    <td>
                                         <input type="text" name="pembahagian" class="form-control">
                                     </td>
                                 </tr>
@@ -1057,10 +1186,12 @@
                             
                             <br>
                             
-                            <a href="" class="btn btn-primary btn-block">Daftar Tanggungan Waris</a>
+                            <button type="submit" class="btn btn-primary btn-block">Daftar Tanggungan Waris</button>
                         </form>
+                        <br>
                         <button id="closeDaftarWaris" class="btn btn-danger">Close</button>
                     </div>
+                    @endif
                 </div>
 
                 <div class="card-body">
@@ -1398,6 +1529,12 @@
         $("#closeDaftarBank").click(
             function() {
                 $("#appearDaftarBank").hide();
+            }
+        );
+
+        $("#closeEditWaris").click(
+            function() {
+                $("#appearEditWaris").hide();
             }
         );
 
