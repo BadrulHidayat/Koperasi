@@ -313,7 +313,7 @@
                                     <th scope="col">Kemaskini</th>
                                     <th scope="col">Padam</th>
                                 </tr>
-                                @if($alamat2==TRUE)
+                                @if($alamat2 == true)
                                 <tr>
                                     <th scope="row">{{ $alamat2->jenisAlamat }}</th>
                                     <th>{{ $alamat2->alamat }}</th>
@@ -336,7 +336,7 @@
                             <a id="daftar_alamat" class="btn btn-primary btn-block">Daftar Alamat</a>
                             <button id="closeAlamat" class="btn btn-danger">Close</button>
                             <br><br>
-                            @if($alamat2==TRUE)
+                            @if($alamat2 == true)
                             <div class="col-md-12" id="appearEditAlamat" style="display: none">
                                 <form action="{{ route('updateAlamatStaff', $alamat2->noKPBaru) }}" method="POST"
                                     enctype="multipart/form-data">
@@ -415,7 +415,7 @@
                             </div>
                             @endif
                             <br><br>
-                            @if($alamat2==FALSE)
+                            @if($alamat2 == false)
                             <div class="col-md-6" id="appearDaftarAlamat" style="display: none">
                                 <form action="{{ route('daftarAlamatStaff', $staff->noKPBaru) }}" method="POST"
                                     enctype="multipart/form-data">
@@ -712,6 +712,7 @@
                                     <th scope="col">Kemaskini</th>
                                     <th scope="col">Padam</th>
                                 </tr>
+                                @if($bank2 == true)
                                 <tr>
                                     <th scope="row">{{ $bank2->jenisBank }}</th>
                                     <th>{{ $bank2->noAkaunBank }}</th>
@@ -732,13 +733,15 @@
                                             class="btn btn-danger btn-block">Padam</a>
                                     </th>
                                 </tr>
+                                @endif
                             </table>
                             <button id="daftar_bank" class="btn btn-primary">Daftar Akaun No</button>
                             <button id="close_bank" class="btn btn-danger">Close</button>
                         </div>
                         <br>
+                        @if($bank2 == true)
                         <div class="col-md-8" id="appearEditBank" style="display: none">
-                            <form action="{{ route('updateBankStaff', $bank2->noKPBaru) }}" method="POST"
+                            <form action="{{ route('updateBankStaff', $staff->noKPBaru) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <table class="table table-bordered table-striped">
@@ -800,9 +803,11 @@
                                 </table>
                             </form>
                         </div>
+                        @endif
                         <br>
+                        @if($bank2 == false)
                         <div class="col-md-8" id="appearDaftarBank" style="display: none">
-                            <form action="{{ route('daftarBankStaff', $bank2->noKPBaru) }}" method="POST"
+                            <form action="{{ route('daftarBankStaff', $staff->noKPBaru) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <table class="table table-bordered table-striped">
@@ -813,7 +818,7 @@
                                         <th scope="col">Batal</th>
                                     </tr>
                                     <tr>
-                                        <input type="hidden" name="noAhli" value="{{ $bank2->noStaff }}">
+                                        <input type="hidden" name="noAhli" value="{{ $staff->noStaff }}">
                                         <th scope="row">
                                             <select name="jenisBank" class="form-select">
                                                 <option value="">Pilih</option>
@@ -852,6 +857,7 @@
                                 </table>
                             </form>
                         </div>
+                        @endif
                     </div>
 
                     <div class="card-body">
@@ -868,7 +874,7 @@
                                     <th scope="col">Kemaskini</th>
                                     <th scope="col">Padam</th>
                                 </tr>
-                                @if($pendidikan->tarafPendidikan==TRUE)
+                                @if($pendidikan == true)
                                 <tr>
                                     <th scope="row">{{ $pendidikan->tarafPendidikan }}</th>
                                     <th>{{ $pendidikan->tahun }}</th>
@@ -888,7 +894,7 @@
                         </div>
                         <br>
 
-                        @if($pendidikan==TRUE)
+                        @if($pendidikan == true)
                         <div class="col-md-8" id="appearEditPendidikan" style="display: none">
                             <form action="{{ route('updatePendidikanStaff', $pendidikan->noKPBaru) }}" method="POST" enctype="multipart/form-data">
                                 {{ csrf_field() }}
@@ -934,9 +940,9 @@
                         </div>
                         @endif
                         <br>
-                        @if($pendidikan->tarafPendidikan==FALSE)
+                        @if($pendidikan == false)
                          <div class="col-md-6" id="appearDaftarPendidikan" style="display: none">
-                            <form action="{{ route('daftarPendidikanStaff', $bank2->noKPBaru) }}" method="POST"
+                            <form action="{{ route('daftarPendidikanStaff', $staff->noKPBaru) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <table class="table table-bordered table-striped">
@@ -945,7 +951,7 @@
                                         <th scope="col">Tahun</th>
                                     </tr>
                                     <tr>
-                                        <input type="hidden" name="noStaff" value="{{ $bank2->noStaff }}">
+                                        <input type="hidden" name="noStaff" value="{{ $staff->noStaff }}">
                                         <th scope="row">
                                             <select name="tarafPendidikan" class="form-select">
                                                 <option value="TIADA">TIADA</option>
@@ -980,7 +986,7 @@
                             <h4>Maklumat Saudara / Mara</h4>
                             <table class="table table-bordered table-striped">
                                 <tr>
-                                    <th scope="col">Hubungan</th>
+                                    <th scope="col">Jenis Hubungan</th>
                                     <th scope="col">Pewaris</th>
                                     <th scope="col">Penerima Wasiat</th>
                                     <th scope="col">Nama</th>
@@ -1047,7 +1053,7 @@
     
                                 <table style="width:30%">
                                     <tr>
-                                        <th style="width: 40%">Hubungan</th>
+                                        <th style="width: 40%">Jenis Hubungan</th>
                                         <td>
                                             <select name="jenisHubungan" class="form-select">
                                                 <option value="{{$saudara->jenisHubungan}}">{{$saudara->jenisHubungan}}</option>
@@ -1153,7 +1159,7 @@
     
                                 <table style="width:30%">
                                     <tr>
-                                        <th style="width: 40%">Hubungan</th>
+                                        <th style="width: 40%">Jenis Hubungan</th>
                                         <td>
                                             <select name="jenisHubungan" class="form-select">
                                                 <option value="Pilih satu">Pilih satu</option>

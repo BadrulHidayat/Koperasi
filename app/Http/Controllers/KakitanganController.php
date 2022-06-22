@@ -1103,7 +1103,6 @@ class KakitanganController extends Controller
             ->where('kakitangan_individus.noKPBaru', $noKPBaru)
             ->first();
 
-
         return view('kakitangan.maklumatStaffHasil')->with(compact('staff', 'alamat2', 'bank2', 'perhubungan', 'pekerjaan', 'pendidikan', 'saudara'));
     }
 }
