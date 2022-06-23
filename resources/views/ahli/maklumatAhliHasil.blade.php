@@ -16,6 +16,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('public/js/bootstrap-4-navbar.js') }}"></script>
 
+    <!-- Alert -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.css">
 </head>
 
 <body>
@@ -307,7 +309,7 @@
 
                     <button class="btn btn-secondary btn-block" id="btn_pejabat">Pejabat/Pembayar Gaji</button>
 
-                    <button class="btn btn-secondary btn-block" id="btn_noTel">No Telefon</button>
+                    <button class="btn btn-secondary btn-block" id="btn_noTel">Perhubungan</button>
 
                     <button class="btn btn-secondary btn-block" id="btn_akaun">Akaun Bank</button>
 
@@ -320,7 +322,7 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="col-md-12" id="appear" style="display: none">
+                    <div class="col-md-12" id="appearAlamat" style="display: none">
                         <h4>Maklumat Alamat</h4>
                         <table class="table table-bordered table-striped">
                             <tr>
@@ -350,18 +352,17 @@
                                     <th>{{ $alamat->updated_at }}</th>
                                     <th><a id="edit_alamat" class="btn btn-success btn-block">Kemaskini</a></th>
                                     <th>
-                                        <a href="{{ route('padamAlamat', $alamat->id) }}"
-                                            class="btn btn-danger btn-block">Padam</a>
+                                        <a id="padamAlamat" class="btn btn-danger btn-block">Padam</a>
                                     </th>
                                 </tr>
                             @endif
                         </table>
 
                         <a id="daftar_alamat" class="btn btn-primary btn-block">Daftar Alamat</a>
-                        <button id="close" class="btn btn-danger">Close</button>
+                        <button id="closeAlamat" class="btn btn-danger">Close</button>
                         <br><br>
                         @if ($alamat == true)
-                            <div class="col-md-12" id="appear7" style="display: none">
+                            <div class="col-md-12" id="appearEditAlamat" style="display: none">
                                 <form action="{{ route('updateAlamat', $alamat->noKPBaru) }}" method="POST"
                                     enctype="multipart/form-data">
                                     {{ csrf_field() }}
@@ -430,7 +431,7 @@
                                                     type="submit">Kemaskini</button>
                                             </th>
                                             <th>
-                                                <a id="close7" class="btn btn-danger btn-block">Batal</a>
+                                                <a id="closeEditAlamat" class="btn btn-danger btn-block">Batal</a>
                                             </th>
                                         </tr>
                                     </table>
@@ -439,7 +440,7 @@
                         @endif
                         <br><br>
                         @if ($alamat == false)
-                            <div class="col-md-6" id="appear8" style="display: none">
+                            <div class="col-md-6" id="appearDaftarAlamat" style="display: none">
                                 <form action="{{ route('daftarAlamat', $ahli->noKPBaru) }}" method="POST"
                                     enctype="multipart/form-data">
                                     {{ csrf_field() }}
@@ -515,14 +516,14 @@
                                     <button class="btn btn-success btn-block" type="submit">Submit</button>
                                     <br><br>
                                 </form>
-                                <button id="close8" class="btn btn-danger">Close</button>
+                                <button id="closeDaftarAlamat" class="btn btn-danger">Close</button>
                             </div>
                         @endif
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <div class="col-md-8" id="appear1" style="display: none">
+                    <div class="col-md-8" id="appearPejabat" style="display: none">
                         <h4>Maklumat Pejabat</h4>
                         <table class="table table-bordered table-striped">
                             <tr>
@@ -558,12 +559,12 @@
                                 </tr>
                             @endforeach
                         </table>
-                        <button id="close1" class="btn btn-danger">Close</button>
+                        <button id="closePejabat" class="btn btn-danger">Close</button>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <div class="col-md-6" id="appear2" style="display: none">
+                    <div class="col-md-6" id="appearPerhubungan" style="display: none">
                         <h4>Maklumat Perhubungan</h4>
                         <table class="table table-bordered table-striped">
                             <tr>
@@ -576,44 +577,39 @@
                                 <th scope="row">No Tel Rumah</th>
                                 <th>{{ $noTelefon->telRumah }}</th>
                                 <th> <a id="edit_telR" class="btn btn-success btn-block">Kemaskini</a></th>
-                                <th><a href="{{ route('padamTelRAhli', $noTelefon->noKPBaru) }}"
-                                        class="btn btn-danger btn-block">Padam</a></th>
+                                <th><a id="padamTelR" class="btn btn-danger btn-block">Padam</a></th>
                             </tr>
                             <tr>
                                 <th scope="row">No Tel Pejabat</th>
                                 <th>{{ $noTelefon->telPejabat }}</th>
                                 <th> <a id="edit_telP" class="btn btn-success btn-block">Kemaskini</a></th>
-                                <th><a href="{{ route('padamTelPAhli', $noTelefon->noKPBaru) }}"
-                                        class="btn btn-danger btn-block">Padam</a></th>
+                                <th><a id="padamTelP" class="btn btn-danger btn-block">Padam</a></th>
                             </tr>
                             <tr>
                                 <th scope="row">No Tel Bimbit</th>
                                 <th>{{ $noTelefon->telHP }}</th>
                                 <th> <a id="edit_telHP" class="btn btn-success btn-block">Kemaskini</a></th>
-                                <th><a href="{{ route('padamTelHPAhli', $noTelefon->noKPBaru) }}"
-                                        class="btn btn-danger btn-block">Padam</a></th>
+                                <th><a id="padamTelHP" class="btn btn-danger btn-block">Padam</a></th>
                             </tr>
                             <tr>
                                 <th scope="row">Faks</th>
                                 <th>{{ $noTelefon->faks }}</th>
                                 <th> <a id="edit_faks" class="btn btn-success btn-block">Kemaskini</a></th>
-                                <th><a href="{{ route('padamFaksAhli', $noTelefon->noKPBaru) }}"
-                                        class="btn btn-danger btn-block">Padam</a></th>
+                                <th><a id="padamFaks" class="btn btn-danger btn-block">Padam</a></th>
                             </tr>
                             <tr>
                                 <th scope="row">E-mail</th>
                                 <th>{{ $noTelefon->email }}</th>
                                 <th> <a id="edit_email" class="btn btn-success btn-block">Kemaskini</a></th>
-                                <th><a href="{{ route('padamEmailAhli', $noTelefon->noKPBaru) }}"
-                                        class="btn btn-danger btn-block">Padam</a></th>
+                                <th><a id="padamEmail" class="btn btn-danger btn-block">Padam</a></th>
                             </tr>
                         </table>
 
-                        <button id="close2" class="btn btn-danger">Close</button>
+                        <button id="closePerhubungan" class="btn btn-danger">Close</button>
 
                         <br><br>
 
-                        <div class="col-md-12" id="appear9" style="display: none">
+                        <div class="col-md-12" id="appearEditTelR" style="display: none">
                             <form action="{{ route('updateTelR', $noTelefon->noKPBaru) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
@@ -627,8 +623,7 @@
                                     <tr>
                                         <th scope="row">No Tel Rumah</th>
                                         <th>
-                                            <input type="text" name="telRumah" value="{{ $noTelefon->telRumah }}"
-                                                class="form-control">
+                                            <input type="text" name="telRumah" value="{{ $noTelefon->telRumah }}" class="form-control">
                                         </th>
                                         <th>
                                             <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
@@ -641,7 +636,7 @@
                             </form>
                         </div>
                         <br>
-                        <div class="col-md-12" id="appear10" style="display: none">
+                        <div class="col-md-12" id="appearEditTelP" style="display: none">
                             <form action="{{ route('updateTelP', $noTelefon->noKPBaru) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
@@ -653,11 +648,9 @@
                                         <th scope="col">Batal</th>
                                     </tr>
                                     <tr>
-                                        {{-- <input type="hidden" name="noKPBaru" value="{{$noTelefon->noKPBaru}}"> --}}
                                         <th scope="row">No Tel Pejabat</th>
                                         <th>
-                                            <input type="text" name="telPejabat" value="{{ $noTelefon->telPejabat }}"
-                                                class="form-control">
+                                            <input type="text" name="telPejabat" value="{{ $noTelefon->telPejabat }}" class="form-control">
                                         </th>
                                         <th>
                                             <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
@@ -670,7 +663,7 @@
                             </form>
                         </div>
                         <br>
-                        <div class="col-md-12" id="appear11" style="display: none">
+                        <div class="col-md-12" id="appearEditTelHP" style="display: none">
                             <form action="{{ route('updateTelHP', $noTelefon->noKPBaru) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
@@ -684,8 +677,7 @@
                                     <tr>
                                         <th scope="row">No Tel Bimbit</th>
                                         <th>
-                                            <input type="text" name="telHP" value="{{ $noTelefon->telHP }}"
-                                                class="form-control">
+                                            <input type="text" name="telHP" value="{{ $noTelefon->telHP }}" class="form-control">
                                         </th>
                                         <th>
                                             <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
@@ -698,7 +690,7 @@
                             </form>
                         </div>
                         <br>
-                        <div class="col-md-12" id="appear12" style="display: none">
+                        <div class="col-md-12" id="appearEditFaks" style="display: none">
                             <form action="{{ route('updatefaks', $noTelefon->noKPBaru) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
@@ -712,8 +704,7 @@
                                     <tr>
                                         <th scope="row">Faks</th>
                                         <th>
-                                            <input type="text" name="faks" value="{{ $noTelefon->faks }}"
-                                                class="form-control">
+                                            <input type="text" name="faks" value="{{ $noTelefon->faks }}" class="form-control">
                                         </th>
                                         <th>
                                             <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
@@ -726,7 +717,7 @@
                             </form>
                         </div>
                         <br>
-                        <div class="col-md-12" id="appear13" style="display: none">
+                        <div class="col-md-12" id="appearEditEmail" style="display: none">
                             <form action="{{ route('updateEmail', $noTelefon->noKPBaru) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
@@ -740,8 +731,7 @@
                                     <tr>
                                         <th scope="row">Email</th>
                                         <th>
-                                            <input type="text" name="email" value="{{ $noTelefon->email }}"
-                                                class="form-control">
+                                            <input type="text" name="email" value="{{ $noTelefon->email }}" class="form-control">
                                         </th>
                                         <th>
                                             <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
@@ -757,7 +747,7 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="col-md-12" id="appear3" style="display: none">
+                    <div class="col-md-12" id="appearBank" style="display: none">
                         <h4>Maklumat Akaun No Bank</h4>
                         <table class="table table-bordered table-striped">
                             <tr>
@@ -790,14 +780,13 @@
                                     </th>
                                     <th><a id="edit_bank" class="btn btn-success btn-block">Kemaskini</a></th>
                                     <th>
-                                        <a href="{{ route('padamBankAhli', $bank->noKPBaru) }}"
-                                            class="btn btn-danger btn-block">Padam</a>
+                                        <a id="padamBank" class="btn btn-danger btn-block">Padam</a>
                                     </th>
                                 </tr>
                             @endif
                         </table>
                         <button id="daftarBank" class="btn btn-primary">Daftar Akaun No</button>
-                        <button id="close3" class="btn btn-danger">Close</button>
+                        <button id="closeBank" class="btn btn-danger">Close</button>
                     </div>
                     <br>
                     @if ($bank == true)
@@ -848,8 +837,7 @@
                                             </select>
                                         </th>
                                         <th>
-                                            <input type="text" name="noAkaunBank" class="form-control"
-                                                value="{{ $bank->noAkaunBank }}">
+                                            <input type="text" name="noAkaunBank" class="form-control" value="{{ $bank->noAkaunBank }}">
                                         </th>
                                         <th></th>
                                         <th>{{ $bank->created_at }}</th>
@@ -883,7 +871,7 @@
                                     <tr>
                                         <th scope="col">Jenis Bank</th>
                                         <th scope="col">No Akaun</th>
-                                        <th scope="col">Kemaskini</th>
+                                        <th scope="col">Daftar</th>
                                         <th scope="col">Batal</th>
                                     </tr>
                                     <tr>
@@ -930,7 +918,7 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="col-md-12" id="appear4" style="display: none">
+                    <div class="col-md-12" id="appearWaris" style="display: none">
                         <h4>Maklumat Tanggungan Waris</h4>
                         <table class="table table-bordered table-striped">
                             <tr>
@@ -958,12 +946,12 @@
                                 <th>{{$waris->jantina}}</th>
                                 <th></th>
                                 <th><a id="edit_waris" class="btn btn-success btn-block">Kemaskini</a></th>
-                                <th><a href="{{route('padamWarisAhli', $waris->noKPBaru)}}" class="btn btn-danger btn-block">Padam</a></th>
+                                <th><a id="padamWaris" class="btn btn-danger btn-block">Padam</a></th>
                             </tr>
                             @endif
                         </table>
                         <button id="daftarWaris" class="btn btn-primary">Daftar Tanggungan Waris</button>
-                        <button id="close4" class="btn btn-danger">Close</button>
+                        <button id="closeWaris" class="btn btn-danger">Close</button>
                     </div>
 
                     <br>
@@ -1195,7 +1183,7 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="col-md-12" id="appear5" style="display: none">
+                    <div class="col-md-12" id="appearCaruman" style="display: none">
                         <h4>Maklumat Caruman</h4>
                         <table class="table table-bordered table-striped">
                             <tr>
@@ -1221,12 +1209,12 @@
                                 <th><a href="" class="btn btn-success btn-block">Kemaskini</a></th>
                             </tr>
                         </table>
-                        <button id="close5" class="btn btn-danger">Close</button>
+                        <button id="closeCaruman" class="btn btn-danger">Close</button>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <div class="col-md-12" id="appear6" style="display: none">
+                    <div class="col-md-12" id="appearPembiayaan" style="display: none">
                         <div class="table-responsive">
                             <h4>Maklumat Pembiayaan</h4>
                             <table class="table table-bordered table-striped">
@@ -1320,95 +1308,331 @@
                                 <th></th>
                             </tr>
                         </table>
-                        <button id="close6" class="btn btn-danger">Close</button>
+                        <button id="closePembiayaan" class="btn btn-danger">Close</button>
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
+
+    <!-- Script pop-up -->
+    <script type="text/javascript">
+        $('#padamWaris').on('click', function() {
+                console.log("btn click");
+                Swal.fire({
+                    title: 'Anda pasti ingin memadam data ini?',
+                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Padam'
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.cancel) {
+    
+                    } else {
+                        Swal.fire(
+                            'Telah dipadam!',
+                            'Maklumat Tanggungan Waris anda telah dipadam.',
+                            'success'
+                        )
+                        @if ($waris == true)
+                            window.location =
+                                '{{ route('padamWarisAhli', $waris->noKPBaru) }}';
+                        @endif
+                    }
+    
+                })
+    
+            })
+
+            $('#padamBank').on('click', function() {
+                console.log("btn click");
+                Swal.fire({
+                    title: 'Anda pasti ingin memadam data ini?',
+                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Padam'
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.cancel) {
+    
+                    } else {
+                        Swal.fire(
+                            'Telah dipadam!',
+                            'Maklumat Bank anda telah dipadamkan.',
+                            'success'
+                        )
+                        @if ($bank == true)
+                            window.location =
+                                '{{route('padamBankAhli', $bank->noKPBaru) }}';
+                        @endif
+                    }
+    
+                })
+    
+            })
+
+            $('#padamEmail').on('click', function() {
+                console.log("btn click");
+                Swal.fire({
+                    title: 'Anda pasti ingin memadam data ini?',
+                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Padam'
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.cancel) {
+    
+                    } else {
+                        Swal.fire(
+                            'Telah dipadam!',
+                            'Email anda telah dipadamkan.',
+                            'success'
+                        )
+                        @if ($noTelefon == true)
+                            window.location =
+                                '{{ route('padamEmailAhli', $noTelefon->noKPBaru) }}';
+                        @endif
+                    }
+    
+                })
+    
+            })
+
+            $('#padamFaks').on('click', function() {
+                console.log("btn click");
+                Swal.fire({
+                    title: 'Anda pasti ingin memadam data ini?',
+                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Padam'
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.cancel) {
+    
+                    } else {
+                        Swal.fire(
+                            'Telah dipadam!',
+                            'Faks anda telah dipadamkan.',
+                            'success'
+                        )
+                        @if ($noTelefon == true)
+                            window.location =
+                                '{{ route('padamFaksAhli', $noTelefon->noKPBaru) }}';
+                        @endif
+                    }
+    
+                })
+    
+            })
+
+            $('#padamTelHP').on('click', function() {
+                console.log("btn click");
+                Swal.fire({
+                    title: 'Anda pasti ingin memadam data ini?',
+                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Padam'
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.cancel) {
+    
+                    } else {
+                        Swal.fire(
+                            'Telah dipadam!',
+                            'No Telefon Bimbit anda telah dipadamkan.',
+                            'success'
+                        )
+                        @if ($noTelefon == true)
+                            window.location =
+                                '{{ route('padamTelHPAhli', $noTelefon->noKPBaru) }}';
+                        @endif
+                    }
+    
+                })
+    
+            })
+
+             $('#padamTelP').on('click', function() {
+                console.log("btn click");
+                Swal.fire({
+                    title: 'Anda pasti ingin memadam data ini?',
+                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Padam'
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.cancel) {
+    
+                    } else {
+                        Swal.fire(
+                            'Telah dipadam!',
+                            'No Telefon Pejabat anda telah dipadamkan.',
+                            'success'
+                        )
+                        @if ($noTelefon == true)
+                            window.location =
+                                '{{ route('padamTelPAhli', $noTelefon->noKPBaru) }}';
+                        @endif
+                    }
+    
+                })
+    
+            })
+
+             $('#padamTelR').on('click', function() {
+                console.log("btn click");
+                Swal.fire({
+                    title: 'Anda pasti ingin memadam data ini?',
+                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Padam'
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.cancel) {
+    
+                    } else {
+                        Swal.fire(
+                            'Telah dipadam!',
+                            'No Telefon Rumah anda telah dipadamkan.',
+                            'success'
+                        )
+                        @if ($noTelefon == true)
+                            window.location =
+                                '{{ route('padamTelRAhli', $noTelefon->noKPBaru) }}';
+                        @endif
+                    }
+    
+                })
+    
+            })
+
+            $('#padamAlamat').on('click', function() {
+                console.log("btn click");
+                Swal.fire({
+                    title: 'Anda pasti ingin memadam data ini?',
+                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Padam'
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.cancel) {
+    
+                    } else {
+                        Swal.fire(
+                            'Telah dipadam!',
+                            'Alamat anda telah dipadamkan.',
+                            'success'
+                        )
+                        @if ($alamat == true)
+                            window.location =
+                                '{{ route('padamAlamat', $alamat->noKPBaru) }}';
+                        @endif
+                    }
+    
+                })
+    
+            })
+        </script>
+
     <script type="text/javascript">
         $("#btn_alamat").click(
             function() {
-                $("#appear").show();
+                $("#appearAlamat").show();
             }
         );
 
         $("#btn_pejabat").click(
             function() {
-                $("#appear1").show();
+                $("#appearPejabat").show();
             }
         );
 
         $("#btn_noTel").click(
             function() {
-                $("#appear2").show();
+                $("#appearPerhubungan").show();
             }
         );
 
         $("#btn_akaun").click(
             function() {
-                $("#appear3").show();
+                $("#appearBank").show();
             }
         );
 
         $("#btn_waris").click(
             function() {
-                $("#appear4").show();
+                $("#appearWaris").show();
             }
         );
 
         $("#btn_caruman").click(
             function() {
-                $("#appear5").show();
+                $("#appearCaruman").show();
             }
         );
 
         $("#btn_pembiayaan").click(
             function() {
-                $("#appear6").show();
+                $("#appearPembiayaan").show();
             }
         );
 
         $("#edit_alamat").click(
             function() {
-                $("#appear7").show();
+                $("#appearEditAlamat").show();
             }
         );
 
         $("#daftar_alamat").click(
             function() {
-                $("#appear8").show();
+                $("#appearDaftarAlamat").show();
             }
         );
 
         $("#edit_telR").click(
             function() {
-                $("#appear9").show();
+                $("#appearEditTelR").show();
             }
         );
 
         $("#edit_telP").click(
             function() {
-                $("#appear10").show();
+                $("#appearEditTelP").show();
             }
         );
 
         $("#edit_telHP").click(
             function() {
-                $("#appear11").show();
+                $("#appearEditTelHP").show();
             }
         );
 
         $("#edit_faks").click(
             function() {
-                $("#appear12").show();
+                $("#appearEditFaks").show();
             }
         );
 
         $("#edit_email").click(
             function() {
-                $("#appear13").show();
+                $("#appearEditEmail").show();
             }
         );
 
@@ -1436,87 +1660,87 @@
             }
         );
 
-        $("#close").click(
+        $("#closeAlamat").click(
             function() {
-                $("#appear").hide();
+                $("#appearAlamat").hide();
             }
         );
 
-        $("#close1").click(
+        $("#closePejabat").click(
             function() {
-                $("#appear1").hide();
+                $("#appearPejabat").hide();
             }
         );
 
-        $("#close2").click(
+        $("#closePerhubungan").click(
             function() {
-                $("#appear2").hide();
+                $("#appearPerhubungan").hide();
             }
         );
 
-        $("#close3").click(
+        $("#closeBank").click(
             function() {
-                $("#appear3").hide();
+                $("#appearBank").hide();
             }
         );
 
-        $("#close4").click(
+        $("#closeWaris").click(
             function() {
-                $("#appear4").hide();
+                $("#appearWaris").hide();
             }
         );
 
-        $("#close5").click(
+        $("#closeCaruman").click(
             function() {
-                $("#appear5").hide();
+                $("#appearCaruman").hide();
             }
         );
 
-        $("#close6").click(
+        $("#closePembiayaan").click(
             function() {
-                $("#appear6").hide();
+                $("#appearPembiayaan").hide();
             }
         );
 
-        $("#close7").click(
+        $("#closeEditAlamat").click(
             function() {
-                $("#appear7").hide();
+                $("#appearEditAlamat").hide();
             }
         );
 
-        $("#close8").click(
+        $("#closeDaftarAlamat").click(
             function() {
-                $("#appear8").hide();
+                $("#appearDaftarAlamat").hide();
             }
         );
 
         $("#closeEditTelR").click(
             function() {
-                $("#appear9").hide();
+                $("#appearEditTelR").hide();
             }
         );
 
         $("#closeEditTelP").click(
             function() {
-                $("#appear10").hide();
+                $("#appearTelP").hide();
             }
         );
 
         $("#closeEditTelHP").click(
             function() {
-                $("#appear11").hide();
+                $("#appearEditTelHP").hide();
             }
         );
 
         $("#closeEditFaks").click(
             function() {
-                $("#appear12").hide();
+                $("#appearEditFaks").hide();
             }
         );
 
         $("#closeEditEmail").click(
             function() {
-                $("#appear13").hide();
+                $("#appearEditEmail").hide();
             }
         );
 
@@ -1546,6 +1770,8 @@
     </script>
 
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js"></script>
     <script src="{{ asset('public/js/app.js') }}" defer></script>
     </div>
 </body>
