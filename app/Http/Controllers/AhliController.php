@@ -240,8 +240,9 @@ class AhliController extends Controller
         $jenisCarian = $_POST['jenisCarian'];
 
         $ahli = ahli_daftar::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
+        $waris = ahli_individu::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
 
-        return view('ahli.maklumatAhli2', compact('ahli'));
+        return view('ahli.maklumatAhli2', compact('ahli', 'waris'));
     }
 
     public function maklumatAhliHasil($noKPBaru)
@@ -279,7 +280,7 @@ class AhliController extends Controller
             ->where('ahli_syarikats.noKPBaru', $noKPBaru)
             ->get();
 
-        $waris = DB::table('ahli_individus')
+        /* $waris = DB::table('ahli_individus')
             ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
             //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
             ->select(
@@ -295,6 +296,27 @@ class AhliController extends Controller
                 'individu_daftars.jantina',
             )
             ->where('ahli_individus.noKPBaru', $noKPBaru)
+            ->first(); */
+
+            $waris = DB::table('individu_daftars as a')
+            ->leftJoin('ahli_individus as b', function($join){
+                $join->on('a.noKP', '=', 'b.cariIndi')
+                ->orWhere('a.nama', 'LIKE', '%b.cariIndi%')
+                ->orWhere('a.noKPlama', 'b.cariIndi');
+            })
+            ->select(
+                'b.noKPBaru',
+                'b.cariIndi',
+                'b.jenisCariIndi',
+                'b.jenisHubungan',
+                'b.pewaris',
+                'b.pemegangWasiat',
+                'b.pembahagian',
+                'a.nama',
+                'a.noKP',
+                'a.jantina',
+            )
+            ->where('b.noKPBaru', $noKPBaru)
             ->first();
 
         return view('ahli.maklumatAhliHasil')->with(compact('ahli', 'alamat', 'bank', 'noTelefon', 'pejabat', 'waris', 'pembayarGaji'));
@@ -581,7 +603,7 @@ class AhliController extends Controller
         return redirect()->route('maklumatAhliHasil', $noKPBaru);
     }
 
-    public function padamWarisAhli(Request $request, $noKPBaru)
+    public function padamWarisAhli($noKPBaru)
     {
         $waris = ahli_individu::where("noKPBaru", $noKPBaru);
         $waris->delete();
