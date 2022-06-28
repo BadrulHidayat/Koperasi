@@ -240,7 +240,7 @@ class AhliController extends Controller
         $jenisCarian = $_POST['jenisCarian'];
 
         $ahli = ahli_daftar::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
-        $waris = ahli_individu::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
+        $waris = ahli_individu::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
 
         return view('ahli.maklumatAhli2', compact('ahli', 'waris'));
     }
@@ -300,9 +300,9 @@ class AhliController extends Controller
 
             $waris = DB::table('individu_daftars as a')
             ->leftJoin('ahli_individus as b', function($join){
-                $join->on('a.noKP', '=', 'b.cariIndi')
-                ->orWhere('a.nama', 'LIKE', '%b.cariIndi%')
-                ->orWhere('a.noKPlama', 'b.cariIndi');
+                $join->on('a.noKP', 'b.cariIndi')
+                ->orOn('a.nama', 'b.cariIndi')
+                ->orOn('a.noKPlama', 'b.cariIndi');
             })
             ->select(
                 'b.noKPBaru',
@@ -314,6 +314,7 @@ class AhliController extends Controller
                 'b.pembahagian',
                 'a.nama',
                 'a.noKP',
+                'a.noKPlama',
                 'a.jantina',
             )
             ->where('b.noKPBaru', $noKPBaru)

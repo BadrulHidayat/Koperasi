@@ -1023,7 +1023,7 @@
                                         <th>{{ $saudara->pemegangWasiat }}</th>
                                         <th>{{ $saudara->nama }}</th>
                                         <th>{{ $saudara->noKP }}</th>
-                                        <th></th>
+                                        <th>{{ $saudara->noKPlama }}</th>
                                         <th><a id="edit_saudara" class="btn btn-success btn-block">Kemaskini</a></th>
                                         <th><a class="btn btn-danger btn-block" id="padamSaudara">Padam</a></th>
                                     </tr>

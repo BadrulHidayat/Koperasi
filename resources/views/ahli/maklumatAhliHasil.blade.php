@@ -942,7 +942,7 @@
                                 <th>{{$waris->pembahagian}}</th>
                                 <th>{{$waris->nama}}</th>
                                 <th>{{$waris->noKP}}</th>
-                                <th></th>
+                                <th>{{$waris->noKPlama}}</th>
                                 <th>{{$waris->jantina}}</th>
                                 <th></th>
                                 <th><a id="edit_waris" class="btn btn-success btn-block">Kemaskini</a></th>

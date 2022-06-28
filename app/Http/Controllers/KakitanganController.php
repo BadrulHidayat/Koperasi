@@ -265,19 +265,23 @@ class KakitanganController extends Controller
         $pekerjaan = kakitangan_pekerjaan::where("noKPBaru", $noKPBaru)->first();
         $pendidikan = kakitangan_pendidikan::where("noKPBaru", $noKPBaru)->first();
 
-        $saudara = DB::table('kakitangan_individus')
-            ->join('individu_daftars', 'kakitangan_individus.cariIndi', '=', 'individu_daftars.noKP')
-            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
+        $saudara = DB::table('individu_daftars as a')
+        ->leftJoin('kakitangan_individus as b', function($join){
+            $join->on('a.noKP', '=', 'b.cariIndi')
+                ->orOn('a.nama', 'b.cariIndi')
+                ->orOn('a.noKPlama', 'b.cariIndi');
+            })
             ->select(
-                'kakitangan_individus.cariIndi',
-                'kakitangan_individus.jenisCariIndi',
-                'kakitangan_individus.jenisHubungan',
-                'kakitangan_individus.pewaris',
-                'kakitangan_individus.pemegangWasiat',
-                'individu_daftars.nama',
-                'individu_daftars.noKP',
+                'b.cariIndi',
+                'b.jenisCariIndi',
+                'b.jenisHubungan',
+                'b.pewaris',
+                'b.pemegangWasiat',
+                'a.nama',
+                'a.noKP',
+                'a.noKPlama'
             )
-            ->where('kakitangan_individus.noKPBaru', $noKPBaru)
+            ->where('b.noKPBaru', $noKPBaru)
             ->first();
 
         return view('kakitangan.maklumatStaffHasil', compact('staff', 'alamat2', 'bank2', 'perhubungan', 'pekerjaan', 'pendidikan', 'saudara'));
