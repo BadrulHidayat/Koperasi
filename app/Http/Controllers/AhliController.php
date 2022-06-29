@@ -137,6 +137,7 @@ class AhliController extends Controller
             'noGaji' => 'required',
             'Gaji' => 'required',
             'potongan' => 'required',
+            'perakuan' => 'required',
         ]);
 
         $ahli = new ahli_daftar();
@@ -712,13 +713,18 @@ class AhliController extends Controller
                 'ahli_daftars.noAhli',
                 'ahli_daftars.nama',
                 'ahli_daftars.noKPBaru',
+                'ahli_daftars.noKPLama',
                 'ahli_berhentis.id',
                 'ahli_berhentis.tarikhMohon',
+                'ahli_berhentis.tarikhLulus',
+                'ahli_berhentis.tarikhBerhenti',
                 'ahli_berhentis.statusBerhenti',
+                'ahli_berhentis.statusKelulusan',
                 'ahli_berhentis.sebabBerhenti',
                 'ahli_berhentis.created_at',
                 'ahli_berhentis.updated_at',
             )
+            ->where('ahli_daftars'.".".$jenisCarian,'LIKE', "%".$carian."%")
             ->get();
 
         return view('ahli.maklumatBerhenti2', compact('ahli'));
@@ -732,8 +738,10 @@ class AhliController extends Controller
                 'ahli_daftars.noAhli',
                 'ahli_daftars.nama',
                 'ahli_daftars.noKPBaru',
+                'ahli_daftars.noKPLama',
                 'ahli_berhentis.id',
                 'ahli_berhentis.tarikhMohon',
+                'ahli_berhentis.tarikhLulus',
                 'ahli_berhentis.statusBerhenti',
                 'ahli_berhentis.sebabBerhenti',
                 'ahli_berhentis.created_at',
@@ -806,11 +814,13 @@ class AhliController extends Controller
                 'ahli_daftars.noAhli',
                 'ahli_daftars.nama',
                 'ahli_daftars.noKPBaru',
+                'ahli_daftars.noKPLama',
                 'ahli_berhentis.tarikhMohon',
                 'ahli_berhentis.statusBerhenti',
                 'ahli_berhentis.created_at',
                 'ahli_berhentis.updated_at',
             )
+            ->where('ahli_daftars.noAhli', $carian)
             ->get();
 
         return view('ahli.kelulusanPemberhentian2')->with(compact('ahli'));
@@ -824,6 +834,7 @@ class AhliController extends Controller
                 'ahli_daftars.noAhli',
                 'ahli_daftars.nama',
                 'ahli_daftars.noKPBaru',
+                'ahli_daftars.noKPLama',
                 'ahli_berhentis.tarikhMohon',
                 'ahli_berhentis.statusBerhenti',
                 'ahli_berhentis.sebabBerhenti',

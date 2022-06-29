@@ -11,9 +11,9 @@
                         {{ csrf_field() }}
                         <table style="width: 50%">
                             <tr>
-                                <th style="width: 30%">
-                                    <label for="statusAhli">Status Keanggotaan</label>
-                                </th>
+                                <td style="width: 30%">
+                                    <label for="statusAhli">Status Keanggotaan <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <select name="statusAhli" class="form-select">
                                         <option value="Anggota Baharu">Anggota Baharu</option>
@@ -29,66 +29,66 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>
+                                <td>
                                     <label for="noAhliTerkini">No Ahli Terkini</label>
-                                </th>
+                                </td>
                                 <td>
                                     <input type="text" name="noAhliTerkini" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="noAhli">No Ahli</label>
-                                </th>
+                                <td>
+                                    <label for="noAhli">No Ahli <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="noAhli" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="tarikhDaftar">Tarikh Daftar</label>
-                                </th>
+                                <td>
+                                    <label for="tarikhDaftar">Tarikh Daftar <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="date" name="tarikhDaftar" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="nama">Nama</label>
-                                </th>
+                                <td>
+                                    <label for="nama">Nama <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="nama" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="noKPBaru">No KP Baru</label>
-                                </th>
+                                <td>
+                                    <label for="noKPBaru">No KP Baru <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="noKPBaru" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
+                                <td>
                                     <label for="noKPLama">No KP Lama/Tentera/Polis</label>
-                                </th>
+                                </td>
                                 <td>
                                     <input type="text" name="noKPLama" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="jantina">Jantina</label>
-                                </th>
+                                <td>
+                                    <label for="jantina">Jantina <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <label><input type="radio" name="jantina" value="Lelaki" class="form-check-input">Lelaki</label>&nbsp;
                                     <label><input type="radio" name="jantina" value="Perempuan" class="form-check-input">Perempuan</label>
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="bangsa">Bangsa</label>
-                                </th>
+                                <td>
+                                    <label for="bangsa">Bangsa <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <select name="bangsa" class="form-select">
                                         <option value="">Pilih</option>
@@ -100,9 +100,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="agama">Agama</label>
-                                </th>
+                                <td>
+                                    <label for="agama">Agama <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <select name="agama" class="form-select">
                                         <option value="">Pilih</option>
@@ -115,25 +115,25 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="tarikhLahir">Tarikh Lahir</label>
-                                </th>
+                                <td>
+                                    <label for="tarikhLahir">Tarikh Lahir <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="date" name="tarikhLahir" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="tempatLahir">Tempat Lahir</label>
-                                </th>
+                                <td>
+                                    <label for="tempatLahir">Tempat Lahir <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="tempatLahir" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="caraPembayaran">Cara Pembayaran</label>
-                                </th>
+                                <td>
+                                    <label for="caraPembayaran">Cara Pembayaran <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <select name="caraPembayaran" class="form-select">
                                         <option value="">Pilih</option>
@@ -149,33 +149,33 @@
                         <h4>Alamat</h4>
                         <table style="width: 50%">
                             <tr>
-                                <th style="width: 30%">
-                                    <label for="alamat">Alamat</label>
-                                </th>
+                                <td style="width: 30%">
+                                    <label for="alamat">Alamat <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <textarea type="text" name="alamat" class="form-control" rows="3" style="resize: none"></textarea>
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="poskod">Poskod</label>
-                                </th>
+                                <td>
+                                    <label for="poskod">Poskod <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="poskod" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="bandar">Bandar</label>
-                                </th>
+                                <td>
+                                    <label for="bandar">Bandar <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="bandar" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="negeri">Negeri</label>
-                                </th>
+                                <td>
+                                    <label for="negeri">Negeri <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <select name="negeri" class="form-select">
                                         <option value="">Pilih</option>
@@ -199,9 +199,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="jenisAlamat">Jenis Alamat</label>
-                                </th>
+                                <td>
+                                    <label for="jenisAlamat">Jenis Alamat <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <select name="jenisAlamat" class="form-select">
                                         <option value="">Pilih</option>
@@ -215,41 +215,41 @@
                         <H4>No Telefon</H4>
                         <table style="width: 50%">
                             <tr>
-                                <th style="width: 30%">
+                                <td style="width: 30%">
                                     <label for="telRumah">Tel (R)</label>
-                                </th>
+                                </td>
                                 <td>
                                     <input type="text" name="telRumah" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
+                                <td>
                                     <label for="telPejabat">Tel (P)</label>
-                                </th>
+                                </td>
                                 <td>
                                     <input type="text" name="telPejabat" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="telHP">Tel (HP)</label>
-                                </th>
+                                <td>
+                                    <label for="telHP">Tel (HP) <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="telHP" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
+                                <td>
                                     <label for="faks">Faks</label>
-                                </th>
+                                </td>
                                 <td>
                                     <input type="text" name="faks" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="email">Email</label>
-                                </th>
+                                <td>
+                                    <label for="email">Email <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="email" name="email" class="form-control">
                                 </td>
@@ -259,17 +259,17 @@
                         <h4>Maklumat Akaun</h4>
                         <table style="width: 50%">
                             <tr>
-                                <th style="width:30%">
-                                    <label for="noAkaunBank">No Akaun Bank</label>
-                                </th>
+                                <td style="width:30%">
+                                    <label for="noAkaunBank">No Akaun Bank <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="noAkaunBank" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="jenisBank">Nama Bank</label>
-                                </th>
+                                <td>
+                                    <label for="jenisBank">Nama Bank <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <select name="jenisBank" class="form-select">
                                         <option value="">Pilih</option>
@@ -301,17 +301,17 @@
                         <h4>Maklumat Pejabat</h4>
                         <table style="width: 50%">
                             <tr>
-                                <th style="width: 30%">
+                                <td style="width: 30%">
                                     <label for="cariP">Carian</label>
-                                </th>
+                                </td>
                                 <td colspan="2">
                                     <input type="text" name="cariP" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
+                                <td>
                                     <label for="jenisCariP">Kategori</label>
-                                </th>
+                                </td>
                                 <td>
                                     <select name="jenisCariP" class="form-select">
                                         <option value="Kod">Kod</option>
@@ -327,17 +327,17 @@
                         <h4>Maklumat Pembayar Gaji</h4>
                         <table style="width:50%">
                             <tr>
-                                <th style="width: 30%">
+                                <td style="width: 30%">
                                     <label for="cariPG">Carian</label>
-                                </th>
+                                </td>
                                 <td colspan="2">
                                     <input type="text" name="cariPG" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
+                                <td>
                                     <label for="jenisCariPG">Kategori</label>
-                                </th>
+                                </td>
                                 <td>
                                     <select name="jenisCariPG" class="form-select">
                                         <option value="Kod">Kod</option>
@@ -353,41 +353,41 @@
                         <h4>Maklumat Pekerjaan</h4>
                         <table style="width:50%">
                             <tr>
-                                <th style="width: 30%">
-                                    <label for="jawatan">Jawatan</label>
-                                </th>
+                                <td style="width: 30%">
+                                    <label for="jawatan">Jawatan <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="jawatan" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="tarikhMulaKerja">Tarikh Mula Kerja</label>
-                                </th>
+                                <td>
+                                    <label for="tarikhMulaKerja">Tarikh Mula Kerja <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="date" name="tarikhMulaKerja" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="noGaji">No Gaji</label>
-                                </th>
+                                <td>
+                                    <label for="noGaji">No Gaji <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="noGaji" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="Gaji">Gaji (sebulan) RM</label>
-                                </th>
+                                <td>
+                                    <label for="Gaji">Gaji (sebulan) RM <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="Gaji" class="form-control">
                                 </td>
                             </tr>
                             <tr>
-                                <th>
-                                    <label for="potongan">Potongan Semasa RM</label>
-                                </th>
+                                <td>
+                                    <label for="potongan">Potongan Semasa RM <span style="color:red;">✴</span></label>
+                                </td>
                                 <td>
                                     <input type="text" name="potongan" class="form-control">
                                 </td>
@@ -397,9 +397,9 @@
                         <h4>Akta Perlindungan Data Peribadi</h4>
                         <table>
                             <tr>
-                                <th>
-                                    <label>Sila tanda kotak berkenaan.</label>
-                                </th>
+                                <td>
+                                    <label>Sila tanda kotak berkenaan. <span style="color:red;">✴</span></label>
+                                </td>
                             </tr>
                             <tr>
                                 <td>

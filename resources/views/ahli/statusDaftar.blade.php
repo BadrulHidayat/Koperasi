@@ -9,24 +9,24 @@
 
                     <table >
                         <tr>
-                            <th style="width: 40%">Status Pendaftaran</th>
-                            <td width="50%"><label>Berjaya</label></td>
+                            <td style="width: 40%">Status Pendaftaran</td>
+                            <th width="50%"><label>Berjaya</label></th>
                         </tr>
                         <tr>
-                            <th>No Ahli</th>
-                            <td><label for="noAhli">{{ $noAhli }}</label></td>
+                            <td>No Ahli</td>
+                            <th><label for="noAhli">{{ $noAhli }}</label></th>
                         </tr>
                         <tr>
-                            <th>Nama</th>
-                            <td><label for="nama">{{ $nama }}</label></td>
+                            <td>Nama</td>
+                            <th><label for="nama">{{ $nama }}</label></th>
                         </tr>
                         <tr>
-                            <th>No KP</th>
-                            <td><label for="noKPBaru">{{ $noKPBaru }}</label></td>
+                            <td>No KP</td>
+                            <th><label for="noKPBaru">{{ $noKPBaru }}</label></th>
                         </tr>
                         <tr>
-                            <th>Tarikh Daftar</th>
-                            <td><label for="tarikhDaftar">{{ $tarikhDaftar }}</label></td>
+                            <td>Tarikh Daftar</td>
+                            <th><label for="tarikhDaftar">{{ $tarikhDaftar }}</label></th>
                         </tr>
                     </table>
                 </div>

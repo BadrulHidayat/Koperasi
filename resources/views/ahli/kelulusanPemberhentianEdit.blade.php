@@ -308,7 +308,7 @@
                                 <td>{{ $ahli->noAhli }}</td>
                                 <td>{{ $ahli->nama }}</td>
                                 <td>{{ $ahli->noKPBaru }}</td>
-                                <td></td>
+                                <td>{{ $ahli->noKPLama}}</td>
                                 <td>{{ $ahli->tarikhMohon }}</td>
                                 <td>{{ $ahli->statusBerhenti }}</td>
                                 <td>{{ $ahli->sebabBerhenti }}</td>
@@ -325,9 +325,6 @@
                                         <option value="Telah Diluluskan Dengan Penyegeraan">Telah Diluluskan Dengan Penyegeraan</option>
                                         <option value="Tidak Diluluskan">Tidak Diluluskan</option>
                                     </select>
-                                </td>
-                                <td>
-                                    
                                 </td>
                             </tr>
                         </table>

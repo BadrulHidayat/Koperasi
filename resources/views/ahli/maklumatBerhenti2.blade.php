@@ -67,12 +67,12 @@
                                     <td>{{ $item->noAhli }}</td>
                                     <td>{{ $item->nama }}</td>
                                     <td>{{ $item->noKPBaru }}</td>
-                                    <td></td>
+                                    <td>{{ $item->noKPLama }}</td>
                                     <td>{{ $item->tarikhMohon }}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $item->tarikhLulus }}</td>
+                                    <td>{{ $item->tarikhBerhenti }}</td>
                                     <td>Daftar Berhenti</td>
-                                    <td></td>
+                                    <td>{{ $item->statusKelulusan }}</td>
                                     <td>{{ $item->statusBerhenti }}</td>
                                     <td></td>
                                     <td></td>

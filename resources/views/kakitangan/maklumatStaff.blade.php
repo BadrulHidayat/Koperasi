@@ -27,7 +27,8 @@
                                 <select name="jenisCarian" id="jenisCarian" class="form-select">
                                     <option value="nama">Nama</option>
                                     <option value="noStaff">No Staff</option>
-                                    <option value="noKPBaru">No Kp Baru</option>
+                                    <option value="noKPBaru">No KP Baru</option>
+                                    <option value="noKPLama">No KP Lama</option>
                                 </select>
                             </td>
                         </tr>

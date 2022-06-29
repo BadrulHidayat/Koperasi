@@ -23,7 +23,7 @@
                                 <td></td>
                                 <td>{{ $ahli->nama }}</td>
                                 <td>{{ $ahli->noKPBaru }}</td>
-                                <td></td>
+                                <td>{{ $ahli->noKPLama }}</td>
                             </tr>
                     </table>
                     <br><br>
