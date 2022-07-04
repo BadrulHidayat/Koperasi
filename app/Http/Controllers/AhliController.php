@@ -241,9 +241,8 @@ class AhliController extends Controller
         $jenisCarian = $_POST['jenisCarian'];
 
         $ahli = ahli_daftar::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
-        $waris = ahli_individu::where($jenisCarian, 'LIKE', '%' . $carian . '%')->first();
 
-        return view('ahli.maklumatAhli2', compact('ahli', 'waris'));
+        return view('ahli.maklumatAhli2', compact('ahli'));
     }
 
     public function maklumatAhliHasil($noKPBaru)
@@ -280,24 +279,6 @@ class AhliController extends Controller
             )
             ->where('ahli_syarikats.noKPBaru', $noKPBaru)
             ->get();
-
-        /* $waris = DB::table('ahli_individus')
-            ->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.noKP')
-            //->join('individu_daftars', 'ahli_individus.cariIndi', '=', 'individu_daftars.nama')
-            ->select(
-                'ahli_individus.noKPBaru',
-                'ahli_individus.cariIndi',
-                'ahli_individus.jenisCariIndi',
-                'ahli_individus.jenisHubungan',
-                'ahli_individus.pewaris',
-                'ahli_individus.pemegangWasiat',
-                'ahli_individus.pembahagian',
-                'individu_daftars.nama',
-                'individu_daftars.noKP',
-                'individu_daftars.jantina',
-            )
-            ->where('ahli_individus.noKPBaru', $noKPBaru)
-            ->first(); */
 
             $waris = DB::table('individu_daftars as a')
             ->leftJoin('ahli_individus as b', function($join){
@@ -820,7 +801,7 @@ class AhliController extends Controller
                 'ahli_berhentis.created_at',
                 'ahli_berhentis.updated_at',
             )
-            ->where('ahli_daftars.noAhli', $carian)
+            ->where('ahli_daftars.noAhli', 'LIKE', "%".$carian."%")
             ->get();
 
         return view('ahli.kelulusanPemberhentian2')->with(compact('ahli'));
