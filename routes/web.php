@@ -65,12 +65,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('ahli/padamWarisAhli/{noKPBaru}', 'App\Http\Controllers\AhliController@padamWarisAhli')->name('padamWarisAhli');
         
         //Route yuran ahli
-        Route::get('ahli/daftarYuran', 'App\Http\Controllers\AhliController@daftarYuran')->name('daftarYuran');
-        Route::get('ahli/daftarYuran2', 'App\Http\Controllers\AhliController@daftarYuran2')->name('daftarYuran2');
-        Route::post('ahli/cariAhliYuran', 'App\Http\Controllers\AhliController@cariAhliYuran')->name('cariAhliYuran');
-        Route::get('ahli/transaksiJenis', 'App\Http\Controllers\AhliController@transaksiJenis')->name('transaksiJenis');
-        Route::get('ahli/transaksiTarikh', 'App\Http\Controllers\AhliController@transaksiTarikh')->name('transaksiTarikh');
-        Route::get('ahli/transaksiMasuk', 'App\Http\Controllers\AhliController@transaksiMasuk')->name('transaksiMasuk');
+        Route::get('akaun/daftarYuran', 'App\Http\Controllers\AkaunController@daftarYuran')->name('daftarYuran');
+        Route::get('akaun/daftarYuran2', 'App\Http\Controllers\AkaunController@daftarYuran2')->name('daftarYuran2');
+        Route::post('akaun/cariAhliYuran', 'App\Http\Controllers\AkaunController@cariAhliYuran')->name('cariAhliYuran');
+        Route::get('akaun/transaksiJenis', 'App\Http\Controllers\AkaunController@transaksiJenis')->name('transaksiJenis');
+        Route::get('akaun/transaksiTarikh', 'App\Http\Controllers\AkaunController@transaksiTarikh')->name('transaksiTarikh');
+        Route::get('akaun/transaksiMasuk', 'App\Http\Controllers\AkaunController@transaksiMasuk')->name('transaksiMasuk');
 
         //Route Daftar berhenti
         Route::get('ahli/daftarBerhenti', 'App\Http\Controllers\AhliController@daftarBerhenti')->name('daftarBerhenti');

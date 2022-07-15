@@ -418,7 +418,8 @@
                                                     <option value="Johor">Johor</option>
                                                     <option value="Sarawak">Sarawak</option>
                                                     <option value="Sabah">Sabah</option>
-                                                    <option value="Wilayah Persekutuan Kuala Lumpur">Wilayah Persekutuan
+                                                    <option value="Wilayah Persekutuan Kuala Lumpur">Wilayah
+                                                        Persekutuan
                                                         Kuala Lumpur</option>
                                                     <option value="Wilayah Persekutuan Putrajaya">Wilayah Persekutuan
                                                         Putrajaya</option>
@@ -490,7 +491,8 @@
                                                     <option value="Johor">Johor</option>
                                                     <option value="Sarawak">Sarawak</option>
                                                     <option value="Sabah">Sabah</option>
-                                                    <option value="Wilayah Persekutuan Kuala Lumpur">Wilayah Persekutuan
+                                                    <option value="Wilayah Persekutuan Kuala Lumpur">Wilayah
+                                                        Persekutuan
                                                         Kuala Lumpur</option>
                                                     <option value="Wilayah Persekutuan Putrajaya">Wilayah Persekutuan
                                                         Putrajaya</option>
@@ -623,10 +625,12 @@
                                     <tr>
                                         <th scope="row">No Tel Rumah</th>
                                         <th>
-                                            <input type="text" name="telRumah" value="{{ $noTelefon->telRumah }}" class="form-control">
+                                            <input type="text" name="telRumah" id="telRumah"
+                                                value="{{ $noTelefon->telRumah }}" class="form-control">
                                         </th>
                                         <th>
-                                            <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
+                                            <button type="submit" class="btn btn-success btn-block"
+                                                id="editTelR">Kemaskini</button>
                                         </th>
                                         <th>
                                             <a id="closeEditTelR" class="btn btn-danger btn-block">Batal</a>
@@ -650,10 +654,12 @@
                                     <tr>
                                         <th scope="row">No Tel Pejabat</th>
                                         <th>
-                                            <input type="text" name="telPejabat" value="{{ $noTelefon->telPejabat }}" class="form-control">
+                                            <input type="text" name="telPejabat"
+                                                value="{{ $noTelefon->telPejabat }}" class="form-control">
                                         </th>
                                         <th>
-                                            <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
+                                            <button type="submit"
+                                                class="btn btn-success btn-block">Kemaskini</button>
                                         </th>
                                         <th>
                                             <a id="closeEditTelP" class="btn btn-danger btn-block">Batal</a>
@@ -677,10 +683,12 @@
                                     <tr>
                                         <th scope="row">No Tel Bimbit</th>
                                         <th>
-                                            <input type="text" name="telHP" value="{{ $noTelefon->telHP }}" class="form-control">
+                                            <input type="text" name="telHP" value="{{ $noTelefon->telHP }}"
+                                                class="form-control">
                                         </th>
                                         <th>
-                                            <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
+                                            <button type="submit"
+                                                class="btn btn-success btn-block">Kemaskini</button>
                                         </th>
                                         <th>
                                             <a id="closeEditTelHP" class="btn btn-danger btn-block">Batal</a>
@@ -704,10 +712,12 @@
                                     <tr>
                                         <th scope="row">Faks</th>
                                         <th>
-                                            <input type="text" name="faks" value="{{ $noTelefon->faks }}" class="form-control">
+                                            <input type="text" name="faks" value="{{ $noTelefon->faks }}"
+                                                class="form-control">
                                         </th>
                                         <th>
-                                            <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
+                                            <button type="submit"
+                                                class="btn btn-success btn-block">Kemaskini</button>
                                         </th>
                                         <th>
                                             <a id="closeEditFaks" class="btn btn-danger btn-block">Batal</a>
@@ -731,10 +741,12 @@
                                     <tr>
                                         <th scope="row">Email</th>
                                         <th>
-                                            <input type="text" name="email" value="{{ $noTelefon->email }}" class="form-control">
+                                            <input type="text" name="email" value="{{ $noTelefon->email }}"
+                                                class="form-control">
                                         </th>
                                         <th>
-                                            <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
+                                            <button type="submit"
+                                                class="btn btn-success btn-block">Kemaskini</button>
                                         </th>
                                         <th>
                                             <a id="closeEditEmail" class="btn btn-danger btn-block">Batal</a>
@@ -825,7 +837,8 @@
                                                 <option value="BANK MUAMALAT">Bank Muamalat</option>
                                                 <option value="PUBLIC BANK">Public Bank</option>
                                                 <option value="ALLIANCE BANK">Alliance Bank</option>
-                                                <option value="STANDARD CHARTERED BANK">Standard Chartered Bank</option>
+                                                <option value="STANDARD CHARTERED BANK">Standard Chartered Bank
+                                                </option>
                                                 <option value="EON BANK">EON Bank</option>
                                                 <option value="HONG LEONG BANK">Hong Leong Bank</option>
                                                 <option value="HSBC BANK">HSBC Bank</option>
@@ -837,7 +850,8 @@
                                             </select>
                                         </th>
                                         <th>
-                                            <input type="text" name="noAkaunBank" class="form-control" value="{{ $bank->noAkaunBank }}">
+                                            <input type="text" name="noAkaunBank" class="form-control"
+                                                value="{{ $bank->noAkaunBank }}">
                                         </th>
                                         <th></th>
                                         <th>{{ $bank->created_at }}</th>
@@ -851,7 +865,8 @@
                                             <a href="#">Bukan Akaun No Utama</a>
                                         </th>
                                         <th>
-                                            <button type="submit" class="btn btn-success btn-block">Kemaskini</button>
+                                            <button type="submit"
+                                                class="btn btn-success btn-block">Kemaskini</button>
                                         </th>
                                         <th>
                                             <a id="closeEditBank" class="btn btn-danger btn-block">Batal</a>
@@ -890,7 +905,8 @@
                                                 <option value="BANK MUAMALAT">Bank Muamalat</option>
                                                 <option value="PUBLIC BANK">Public Bank</option>
                                                 <option value="ALLIANCE BANK">Alliance Bank</option>
-                                                <option value="STANDARD CHARTERED BANK">Standard Chartered Bank</option>
+                                                <option value="STANDARD CHARTERED BANK">Standard Chartered Bank
+                                                </option>
                                                 <option value="EON BANK">EON Bank</option>
                                                 <option value="HONG LEONG BANK">Hong Leong Bank</option>
                                                 <option value="HSBC BANK">HSBC Bank</option>
@@ -935,19 +951,19 @@
                                 <th scope="col">Padam</th>
                             </tr>
                             @if ($waris == true)
-                            <tr>
-                                <th scope="row">{{$waris->jenisHubungan}}</th>
-                                <th>{{$waris->pewaris}}</th>
-                                <th>{{$waris->pemegangWasiat}}</th>
-                                <th>{{$waris->pembahagian}}</th>
-                                <th>{{$waris->nama}}</th>
-                                <th>{{$waris->noKP}}</th>
-                                <th>{{$waris->noKPlama}}</th>
-                                <th>{{$waris->jantina}}</th>
-                                <th></th>
-                                <th><a id="edit_waris" class="btn btn-success btn-block">Kemaskini</a></th>
-                                <th><a id="padamWaris" class="btn btn-danger btn-block">Padam</a></th>
-                            </tr>
+                                <tr>
+                                    <th scope="row">{{ $waris->jenisHubungan }}</th>
+                                    <th>{{ $waris->pewaris }}</th>
+                                    <th>{{ $waris->pemegangWasiat }}</th>
+                                    <th>{{ $waris->pembahagian }}</th>
+                                    <th>{{ $waris->nama }}</th>
+                                    <th>{{ $waris->noKP }}</th>
+                                    <th>{{ $waris->noKPlama }}</th>
+                                    <th>{{ $waris->jantina }}</th>
+                                    <th></th>
+                                    <th><a id="edit_waris" class="btn btn-success btn-block">Kemaskini</a></th>
+                                    <th><a id="padamWaris" class="btn btn-danger btn-block">Padam</a></th>
+                                </tr>
                             @endif
                         </table>
                         <button id="daftarWaris" class="btn btn-primary">Daftar Tanggungan Waris</button>
@@ -957,228 +973,253 @@
                     <br>
 
                     @if ($waris == true)
-                    <div class="col-md-12" id="appearEditWaris" style="display: none">
-                        <form action="{{ route('updateWaris', $ahli->noKPBaru) }}" method="POST" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            <h4>Carian</h4>
-                            <table>
-                                <input type="hidden" name="noAhli" value="{{ $ahli->noAhli }}">
-                                <tr>
-                                    <th>Carian Individu</th>
-                                    <td>
-                                        <input type="text" name="cariIndi" class="form-control" value="{{$waris->cariIndi}}">
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('daftarIndividu') }}" class="btn btn-primary">Daftar Individu</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Jenis Carian</th>
-                                    <td>
-                                        <select name="jenisCariIndi" class="form-select">
-                                            <option value="{{$waris->jenisCariIndi}}">{{$waris->jenisCariIndi}}</option>
-                                            <option value="No Ahli">No Ahli</option>
-                                            <option value="No KP">No KP</option>
-                                            <option value="No KP Lama">No KP Lama</option>
-                                            <option value="Nama">Nama</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <button class="btn btn-secondary btn-block">Cari</button>
-                                    </th>
-                                </tr>
-                            </table>
+                        <div class="col-md-12" id="appearEditWaris" style="display: none">
+                            <form action="{{ route('updateWaris', $ahli->noKPBaru) }}" method="POST"
+                                enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <h4>Carian</h4>
+                                <table>
+                                    <input type="hidden" name="noAhli" value="{{ $ahli->noAhli }}">
+                                    <tr>
+                                        <th>Carian Individu</th>
+                                        <td>
+                                            <input type="text" name="cariIndi" class="form-control"
+                                                value="{{ $waris->cariIndi }}">
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('daftarIndividu') }}" class="btn btn-primary">Daftar
+                                                Individu</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Jenis Carian</th>
+                                        <td>
+                                            <select name="jenisCariIndi" class="form-select">
+                                                <option value="{{ $waris->jenisCariIndi }}">
+                                                    {{ $waris->jenisCariIndi }}</option>
+                                                <option value="No Ahli">No Ahli</option>
+                                                <option value="No KP">No KP</option>
+                                                <option value="No KP Lama">No KP Lama</option>
+                                                <option value="Nama">Nama</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <button class="btn btn-secondary btn-block">Cari</button>
+                                        </th>
+                                    </tr>
+                                </table>
 
-                            <br>
+                                <br>
 
-                            <table style="width:30%">
-                                <tr>
-                                    <th style="width: 40%">Hubungan</th>
-                                    <td>
-                                        <select name="jenisHubungan" class="form-select">
-                                            <option value="{{$waris->jenisHubungan}}">{{$waris->jenisHubungan}}</option>
-                                            <option value="SUAMI">Suami</option>
-                                            <option value="ISTERI">Isteri</option>
-                                            <option value="IBU">Ibu</option>
-                                            <option value="BAPA">Bapa</option>
-                                            <option value="ABANG">Abang</option>
-                                            <option value="KAKAK">Kakak</option>
-                                            <option value="ADIK">Adik</option>
-                                            <option value="ANAK">Anak</option>
-                                            <option value="BAPA SAUDARA">Bapa Saudara</option>
-                                            <option value="IBU SAUDARA">Ibu Saudara</option>
-                                            <option value="ANAK SAUDARA">Anak Saudara</option>
-                                            <option value="SEPUPU">Sepupu</option>
-                                            <option value="CUCU">Cucu</option>
-                                            <option value="ABANG IPAR">Abang Ipar</option>
-                                            <option value="KAKAK IPAR">Kakak Ipar</option>
-                                            <option value="ADIK IPAR">Adik Ipar</option>
-                                            <option value="TUNANG">Tunang</option>
-                                            <option value="WAKIL WARITH">Wakil Warith</option>
-                                            <option value="SAHABAT QARIB">Sahabat Qarib</option>
-                                            <option value="LAIN-LAIN">Lain-lain</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="width: 30%">
-                                <tr>
-                                    <th style="width: 40%">
-                                        <label>Pewaris</label>
-                                    </th>
-                                    <td>
-                                        <label><input type="radio" name="pewaris" value="Ya" class="form-check-input" <?php if ($waris->pewaris == "Ya") echo "checked" ?>>Ya</label>
-                                    </td>
-                                    <td>
-                                        <label><input type="radio" name="pewaris" value="Tidak" class="form-check-input" <?php if ($waris->pewaris == "Tidak") echo "checked" ?>>Tidak</label>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="width: 30%">
-                                <tr>
-                                    <th style="width: 40%">
-                                        <label>Pemegang Wasiat</label>
-                                    </th>
-                                    <td>
-                                        <label><input type="radio" name="pemegangWasiat" value="Ya" class="form-check-input" <?php if ($waris->pemegangWasiat == "Ya") echo "checked" ?>>Ya</label>
-                                    </td>
-                                    <td>
-                                        <label><input type="radio" name="pemegangWasiat" value="Tidak" class="form-check-input" <?php if ($waris->pemegangWasiat == "Tidak") echo "checked" ?>>Tidak</label>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="width: 30%">
-                                <tr>
-                                    <th style="width: 40%">Pembahagian (%)</th>
-                                    <td>
-                                        <input type="text" name="pembahagian" class="form-control" value="{{$waris->pembahagian }}">
-                                    </td>
-                                </tr>
-                            </table>
-                            
+                                <table style="width:30%">
+                                    <tr>
+                                        <th style="width: 40%">Hubungan</th>
+                                        <td>
+                                            <select name="jenisHubungan" class="form-select">
+                                                <option value="{{ $waris->jenisHubungan }}">
+                                                    {{ $waris->jenisHubungan }}</option>
+                                                <option value="SUAMI">Suami</option>
+                                                <option value="ISTERI">Isteri</option>
+                                                <option value="IBU">Ibu</option>
+                                                <option value="BAPA">Bapa</option>
+                                                <option value="ABANG">Abang</option>
+                                                <option value="KAKAK">Kakak</option>
+                                                <option value="ADIK">Adik</option>
+                                                <option value="ANAK">Anak</option>
+                                                <option value="BAPA SAUDARA">Bapa Saudara</option>
+                                                <option value="IBU SAUDARA">Ibu Saudara</option>
+                                                <option value="ANAK SAUDARA">Anak Saudara</option>
+                                                <option value="SEPUPU">Sepupu</option>
+                                                <option value="CUCU">Cucu</option>
+                                                <option value="ABANG IPAR">Abang Ipar</option>
+                                                <option value="KAKAK IPAR">Kakak Ipar</option>
+                                                <option value="ADIK IPAR">Adik Ipar</option>
+                                                <option value="TUNANG">Tunang</option>
+                                                <option value="WAKIL WARITH">Wakil Warith</option>
+                                                <option value="SAHABAT QARIB">Sahabat Qarib</option>
+                                                <option value="LAIN-LAIN">Lain-lain</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 30%">
+                                    <tr>
+                                        <th style="width: 40%">
+                                            <label>Pewaris</label>
+                                        </th>
+                                        <td>
+                                            <label><input type="radio" name="pewaris" value="Ya"
+                                                    class="form-check-input" <?php if ($waris->pewaris == 'Ya') {
+                                                        echo 'checked';
+                                                    } ?>>Ya</label>
+                                        </td>
+                                        <td>
+                                            <label><input type="radio" name="pewaris" value="Tidak"
+                                                    class="form-check-input" <?php if ($waris->pewaris == 'Tidak') {
+                                                        echo 'checked';
+                                                    } ?>>Tidak</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 30%">
+                                    <tr>
+                                        <th style="width: 40%">
+                                            <label>Pemegang Wasiat</label>
+                                        </th>
+                                        <td>
+                                            <label><input type="radio" name="pemegangWasiat" value="Ya"
+                                                    class="form-check-input" <?php if ($waris->pemegangWasiat == 'Ya') {
+                                                        echo 'checked';
+                                                    } ?>>Ya</label>
+                                        </td>
+                                        <td>
+                                            <label><input type="radio" name="pemegangWasiat" value="Tidak"
+                                                    class="form-check-input" <?php if ($waris->pemegangWasiat == 'Tidak') {
+                                                        echo 'checked';
+                                                    } ?>>Tidak</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 30%">
+                                    <tr>
+                                        <th style="width: 40%">Pembahagian (%)</th>
+                                        <td>
+                                            <input type="text" name="pembahagian" class="form-control"
+                                                value="{{ $waris->pembahagian }}">
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <br>
+
+                                <button type="submit" class="btn btn-primary btn-block">Kemaskini Tanggungan
+                                    Waris</button>
+                            </form>
                             <br>
-                            
-                            <button type="submit" class="btn btn-primary btn-block">Kemaskini Tanggungan Waris</button>
-                        </form>
-                        <br>
-                        <button id="closeEditWaris" class="btn btn-danger">Close</button>
-                    </div>
+                            <button id="closeEditWaris" class="btn btn-danger">Close</button>
+                        </div>
                     @endif
 
                     <br>
 
                     @if ($waris == false)
-                    <div class="col-md-12" id="appearDaftarWaris" style="display: none">
-                        <form action="{{ route('daftarWaris', $ahli->noKPBaru) }}" method="POST" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            <h4>Carian</h4>
-                            <table>
-                                <input type="hidden" name="noAhli" value="{{ $ahli->noAhli }}">
-                                <tr>
-                                    <th>Carian Individu</th>
-                                    <td>
-                                        <input type="text" name="cariIndi" class="form-control">
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('daftarIndividu') }}" class="btn btn-primary">Daftar
-                                            Individu</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Jenis Carian</th>
-                                    <td>
-                                        <select name="jenisCariIndi" class="form-select">
-                                            <option value="Pilih satu">Pilih satu</option>
-                                            <option value="No Ahli">No Ahli</option>
-                                            <option value="No KP">No KP</option>
-                                            <option value="No KP Lama">No KP Lama</option>
-                                            <option value="Nama">Nama</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <button class="btn btn-secondary btn-block">Cari</button>
-                                    </th>
-                                </tr>
-                            </table>
+                        <div class="col-md-12" id="appearDaftarWaris" style="display: none">
+                            <form action="{{ route('daftarWaris', $ahli->noKPBaru) }}" method="POST"
+                                enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <h4>Carian</h4>
+                                <table>
+                                    <input type="hidden" name="noAhli" value="{{ $ahli->noAhli }}">
+                                    <tr>
+                                        <th>Carian Individu</th>
+                                        <td>
+                                            <input type="text" name="cariIndi" class="form-control">
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('daftarIndividu') }}" class="btn btn-primary">Daftar
+                                                Individu</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Jenis Carian</th>
+                                        <td>
+                                            <select name="jenisCariIndi" class="form-select">
+                                                <option value="Pilih satu">Pilih satu</option>
+                                                <option value="No Ahli">No Ahli</option>
+                                                <option value="No KP">No KP</option>
+                                                <option value="No KP Lama">No KP Lama</option>
+                                                <option value="Nama">Nama</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <button class="btn btn-secondary btn-block">Cari</button>
+                                        </th>
+                                    </tr>
+                                </table>
 
-                            <br>
+                                <br>
 
-                            <table style="width:30%">
-                                <tr>
-                                    <th style="width: 40%">Hubungan</th>
-                                    <td>
-                                        <select name="jenisHubungan" class="form-select">
-                                            <option value="Pilih satu">Pilih satu</option>
-                                            <option value="SUAMI">Suami</option>
-                                            <option value="ISTERI">Isteri</option>
-                                            <option value="IBU">Ibu</option>
-                                            <option value="BAPA">Bapa</option>
-                                            <option value="ABANG">Abang</option>
-                                            <option value="KAKAK">Kakak</option>
-                                            <option value="ADIK">Adik</option>
-                                            <option value="ANAK">Anak</option>
-                                            <option value="BAPA SAUDARA">Bapa Saudara</option>
-                                            <option value="IBU SAUDARA">Ibu Saudara</option>
-                                            <option value="ANAK SAUDARA">Anak Saudara</option>
-                                            <option value="SEPUPU">Sepupu</option>
-                                            <option value="CUCU">Cucu</option>
-                                            <option value="ABANG IPAR">Abang Ipar</option>
-                                            <option value="KAKAK IPAR">Kakak Ipar</option>
-                                            <option value="ADIK IPAR">Adik Ipar</option>
-                                            <option value="TUNANG">Tunang</option>
-                                            <option value="WAKIL WARITH">Wakil Warith</option>
-                                            <option value="SAHABAT QARIB">Sahabat Qarib</option>
-                                            <option value="LAIN-LAIN">Lain-lain</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="width: 30%">
-                                <tr>
-                                    <th style="width: 40%">
-                                        <label>Pewaris</label>
-                                    </th>
-                                    <td>
-                                        <label><input type="radio" name="pewaris" value="Ya" class="form-check-input">Ya</label>
-                                    </td>
-                                    <td>
-                                        <label><input type="radio" name="pewaris" value="Tidak" class="form-check-input">Tidak</label>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="width: 30%">
-                                <tr>
-                                    <th style="width: 40%">
-                                        <label>Pemegang Wasiat</label>
-                                    </th>
-                                    <td>
-                                        <label><input type="radio" name="pemegangWasiat" value="Ya" class="form-check-input">Ya</label>
-                                    </td>
-                                    <td>
-                                        <label><input type="radio" name="pemegangWasiat" value="Tidak" class="form-check-input">Tidak</label>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="width: 30%">
-                                <tr>
-                                    <th style="width: 40%">Pembahagian (%)</th>
-                                    <td>
-                                        <input type="text" name="pembahagian" class="form-control">
-                                    </td>
-                                </tr>
-                            </table>
-                            
+                                <table style="width:30%">
+                                    <tr>
+                                        <th style="width: 40%">Hubungan</th>
+                                        <td>
+                                            <select name="jenisHubungan" class="form-select">
+                                                <option value="Pilih satu">Pilih satu</option>
+                                                <option value="SUAMI">Suami</option>
+                                                <option value="ISTERI">Isteri</option>
+                                                <option value="IBU">Ibu</option>
+                                                <option value="BAPA">Bapa</option>
+                                                <option value="ABANG">Abang</option>
+                                                <option value="KAKAK">Kakak</option>
+                                                <option value="ADIK">Adik</option>
+                                                <option value="ANAK">Anak</option>
+                                                <option value="BAPA SAUDARA">Bapa Saudara</option>
+                                                <option value="IBU SAUDARA">Ibu Saudara</option>
+                                                <option value="ANAK SAUDARA">Anak Saudara</option>
+                                                <option value="SEPUPU">Sepupu</option>
+                                                <option value="CUCU">Cucu</option>
+                                                <option value="ABANG IPAR">Abang Ipar</option>
+                                                <option value="KAKAK IPAR">Kakak Ipar</option>
+                                                <option value="ADIK IPAR">Adik Ipar</option>
+                                                <option value="TUNANG">Tunang</option>
+                                                <option value="WAKIL WARITH">Wakil Warith</option>
+                                                <option value="SAHABAT QARIB">Sahabat Qarib</option>
+                                                <option value="LAIN-LAIN">Lain-lain</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 30%">
+                                    <tr>
+                                        <th style="width: 40%">
+                                            <label>Pewaris</label>
+                                        </th>
+                                        <td>
+                                            <label><input type="radio" name="pewaris" value="Ya"
+                                                    class="form-check-input">Ya</label>
+                                        </td>
+                                        <td>
+                                            <label><input type="radio" name="pewaris" value="Tidak"
+                                                    class="form-check-input">Tidak</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 30%">
+                                    <tr>
+                                        <th style="width: 40%">
+                                            <label>Pemegang Wasiat</label>
+                                        </th>
+                                        <td>
+                                            <label><input type="radio" name="pemegangWasiat" value="Ya"
+                                                    class="form-check-input">Ya</label>
+                                        </td>
+                                        <td>
+                                            <label><input type="radio" name="pemegangWasiat" value="Tidak"
+                                                    class="form-check-input">Tidak</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 30%">
+                                    <tr>
+                                        <th style="width: 40%">Pembahagian (%)</th>
+                                        <td>
+                                            <input type="text" name="pembahagian" class="form-control">
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <br>
+
+                                <button type="submit" class="btn btn-primary btn-block">Daftar Tanggungan
+                                    Waris</button>
+                            </form>
                             <br>
-                            
-                            <button type="submit" class="btn btn-primary btn-block">Daftar Tanggungan Waris</button>
-                        </form>
-                        <br>
-                        <button id="closeDaftarWaris" class="btn btn-danger">Close</button>
-                    </div>
+                            <button id="closeDaftarWaris" class="btn btn-danger">Close</button>
+                        </div>
                     @endif
                 </div>
 
@@ -1319,237 +1360,237 @@
     <!-- Script pop-up -->
     <script type="text/javascript">
         $('#padamWaris').on('click', function() {
-                console.log("btn click");
-                Swal.fire({
-                    title: 'Anda pasti ingin memadam data ini?',
-                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Padam'
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.cancel) {
-    
-                    } else {
-                        Swal.fire(
-                            'Telah dipadam!',
-                            'Maklumat Tanggungan Waris anda telah dipadam.',
-                            'success'
-                        )
-                        @if ($waris == true)
-                            window.location =
-                                '{{ route('padamWarisAhli', $waris->noKPBaru) }}';
-                        @endif
-                    }
-    
-                })
-    
+            console.log("btn click");
+            Swal.fire({
+                title: 'Anda pasti ingin memadam data ini?',
+                text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Padam'
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.cancel) {
+
+                } else {
+                    Swal.fire(
+                        'Telah dipadam!',
+                        'Maklumat Tanggungan Waris anda telah dipadam.',
+                        'success'
+                    )
+                    @if ($waris == true)
+                        window.location =
+                            '{{ route('padamWarisAhli', $waris->noKPBaru) }}';
+                    @endif
+                }
+
             })
 
-            $('#padamBank').on('click', function() {
-                console.log("btn click");
-                Swal.fire({
-                    title: 'Anda pasti ingin memadam data ini?',
-                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Padam'
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.cancel) {
-    
-                    } else {
-                        Swal.fire(
-                            'Telah dipadam!',
-                            'Maklumat Bank anda telah dipadamkan.',
-                            'success'
-                        )
-                        @if ($bank == true)
-                            window.location =
-                                '{{route('padamBankAhli', $bank->noKPBaru) }}';
-                        @endif
-                    }
-    
-                })
-    
+        })
+
+        $('#padamBank').on('click', function() {
+            console.log("btn click");
+            Swal.fire({
+                title: 'Anda pasti ingin memadam data ini?',
+                text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Padam'
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.cancel) {
+
+                } else {
+                    Swal.fire(
+                        'Telah dipadam!',
+                        'Maklumat Bank anda telah dipadamkan.',
+                        'success'
+                    )
+                    @if ($bank == true)
+                        window.location =
+                            '{{ route('padamBankAhli', $bank->noKPBaru) }}';
+                    @endif
+                }
+
             })
 
-            $('#padamEmail').on('click', function() {
-                console.log("btn click");
-                Swal.fire({
-                    title: 'Anda pasti ingin memadam data ini?',
-                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Padam'
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.cancel) {
-    
-                    } else {
-                        Swal.fire(
-                            'Telah dipadam!',
-                            'Email anda telah dipadamkan.',
-                            'success'
-                        )
-                        @if ($noTelefon == true)
-                            window.location =
-                                '{{ route('padamEmailAhli', $noTelefon->noKPBaru) }}';
-                        @endif
-                    }
-    
-                })
-    
+        })
+
+        $('#padamEmail').on('click', function() {
+            console.log("btn click");
+            Swal.fire({
+                title: 'Anda pasti ingin memadam data ini?',
+                text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Padam'
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.cancel) {
+
+                } else {
+                    Swal.fire(
+                        'Telah dipadam!',
+                        'Email anda telah dipadamkan.',
+                        'success'
+                    )
+                    @if ($noTelefon == true)
+                        window.location =
+                            '{{ route('padamEmailAhli', $noTelefon->noKPBaru) }}';
+                    @endif
+                }
+
             })
 
-            $('#padamFaks').on('click', function() {
-                console.log("btn click");
-                Swal.fire({
-                    title: 'Anda pasti ingin memadam data ini?',
-                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Padam'
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.cancel) {
-    
-                    } else {
-                        Swal.fire(
-                            'Telah dipadam!',
-                            'Faks anda telah dipadamkan.',
-                            'success'
-                        )
-                        @if ($noTelefon == true)
-                            window.location =
-                                '{{ route('padamFaksAhli', $noTelefon->noKPBaru) }}';
-                        @endif
-                    }
-    
-                })
-    
+        })
+
+        $('#padamFaks').on('click', function() {
+            console.log("btn click");
+            Swal.fire({
+                title: 'Anda pasti ingin memadam data ini?',
+                text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Padam'
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.cancel) {
+
+                } else {
+                    Swal.fire(
+                        'Telah dipadam!',
+                        'Faks anda telah dipadamkan.',
+                        'success'
+                    )
+                    @if ($noTelefon == true)
+                        window.location =
+                            '{{ route('padamFaksAhli', $noTelefon->noKPBaru) }}';
+                    @endif
+                }
+
             })
 
-            $('#padamTelHP').on('click', function() {
-                console.log("btn click");
-                Swal.fire({
-                    title: 'Anda pasti ingin memadam data ini?',
-                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Padam'
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.cancel) {
-    
-                    } else {
-                        Swal.fire(
-                            'Telah dipadam!',
-                            'No Telefon Bimbit anda telah dipadamkan.',
-                            'success'
-                        )
-                        @if ($noTelefon == true)
-                            window.location =
-                                '{{ route('padamTelHPAhli', $noTelefon->noKPBaru) }}';
-                        @endif
-                    }
-    
-                })
-    
+        })
+
+        $('#padamTelHP').on('click', function() {
+            console.log("btn click");
+            Swal.fire({
+                title: 'Anda pasti ingin memadam data ini?',
+                text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Padam'
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.cancel) {
+
+                } else {
+                    Swal.fire(
+                        'Telah dipadam!',
+                        'No Telefon Bimbit anda telah dipadamkan.',
+                        'success'
+                    )
+                    @if ($noTelefon == true)
+                        window.location =
+                            '{{ route('padamTelHPAhli', $noTelefon->noKPBaru) }}';
+                    @endif
+                }
+
             })
 
-             $('#padamTelP').on('click', function() {
-                console.log("btn click");
-                Swal.fire({
-                    title: 'Anda pasti ingin memadam data ini?',
-                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Padam'
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.cancel) {
-    
-                    } else {
-                        Swal.fire(
-                            'Telah dipadam!',
-                            'No Telefon Pejabat anda telah dipadamkan.',
-                            'success'
-                        )
-                        @if ($noTelefon == true)
-                            window.location =
-                                '{{ route('padamTelPAhli', $noTelefon->noKPBaru) }}';
-                        @endif
-                    }
-    
-                })
-    
+        })
+
+        $('#padamTelP').on('click', function() {
+            console.log("btn click");
+            Swal.fire({
+                title: 'Anda pasti ingin memadam data ini?',
+                text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Padam'
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.cancel) {
+
+                } else {
+                    Swal.fire(
+                        'Telah dipadam!',
+                        'No Telefon Pejabat anda telah dipadamkan.',
+                        'success'
+                    )
+                    @if ($noTelefon == true)
+                        window.location =
+                            '{{ route('padamTelPAhli', $noTelefon->noKPBaru) }}';
+                    @endif
+                }
+
             })
 
-             $('#padamTelR').on('click', function() {
-                console.log("btn click");
-                Swal.fire({
-                    title: 'Anda pasti ingin memadam data ini?',
-                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Padam'
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.cancel) {
-    
-                    } else {
-                        Swal.fire(
-                            'Telah dipadam!',
-                            'No Telefon Rumah anda telah dipadamkan.',
-                            'success'
-                        )
-                        @if ($noTelefon == true)
-                            window.location =
-                                '{{ route('padamTelRAhli', $noTelefon->noKPBaru) }}';
-                        @endif
-                    }
-    
-                })
-    
+        })
+
+        $('#padamTelR').on('click', function() {
+            console.log("btn click");
+            Swal.fire({
+                title: 'Anda pasti ingin memadam data ini?',
+                text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Padam'
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.cancel) {
+
+                } else {
+                    Swal.fire(
+                        'Telah dipadam!',
+                        'No Telefon Rumah anda telah dipadamkan.',
+                        'success'
+                    )
+                    @if ($noTelefon == true)
+                        window.location =
+                            '{{ route('padamTelRAhli', $noTelefon->noKPBaru) }}';
+                    @endif
+                }
+
             })
 
-            $('#padamAlamat').on('click', function() {
-                console.log("btn click");
-                Swal.fire({
-                    title: 'Anda pasti ingin memadam data ini?',
-                    text: "Data yang dipadam tidak akan dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Padam'
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.cancel) {
-    
-                    } else {
-                        Swal.fire(
-                            'Telah dipadam!',
-                            'Alamat anda telah dipadamkan.',
-                            'success'
-                        )
-                        @if ($alamat == true)
-                            window.location =
-                                '{{ route('padamAlamat', $alamat->noKPBaru) }}';
-                        @endif
-                    }
-    
-                })
-    
+        })
+
+        $('#padamAlamat').on('click', function() {
+            console.log("btn click");
+            Swal.fire({
+                title: 'Anda pasti ingin memadam data ini?',
+                text: "Data yang dipadam tidak akan dapat dikembalikan!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Padam'
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.cancel) {
+
+                } else {
+                    Swal.fire(
+                        'Telah dipadam!',
+                        'Alamat anda telah dipadamkan.',
+                        'success'
+                    )
+                    @if ($alamat == true)
+                        window.location =
+                            '{{ route('padamAlamat', $alamat->noKPBaru) }}';
+                    @endif
+                }
+
             })
-        </script>
+
+        })
+    </script>
 
     <script type="text/javascript">
         $("#btn_alamat").click(
@@ -1770,7 +1811,8 @@
     </script>
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js"></script>
     <script src="{{ asset('public/js/app.js') }}" defer></script>
     </div>

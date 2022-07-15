@@ -594,46 +594,6 @@ class AhliController extends Controller
         return redirect()->route('maklumatAhliHasil', $noKPBaru);
     }
 
-    public function daftarYuran()
-    {
-        return view('ahli.daftarYuran');
-    }
-
-    public function cariAhliYuran()
-    {
-        $carian = $_POST['carian'];
-        $jenisCarian = $_POST['jenisCarian'];
-
-        $ahli = ahli_daftar::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
-
-        return view('ahli.daftarYuran2', compact('ahli'));
-    }
-
-    public function daftarYuran2()
-    {
-        $carian = $_POST['carian'];
-        $jenisCarian = $_POST['jenisCarian'];
-
-        $ahli = ahli_daftar::where($jenisCarian, 'LIKE', '%' . $carian . '%')->get();
-
-        return view('ahli.daftarYuran2', compact('ahli'));
-    }
-
-    public function transaksiJenis()
-    {
-        return view('ahli.transaksiJenis');
-    }
-
-    public function transaksiTarikh()
-    {
-        return view('ahli.transaksiTarikh');
-    }
-
-    public function transaksiMasuk()
-    {
-        return view('ahli.transaksiMasuk');
-    }
-
     public function daftarBerhenti()
     {
         return view('ahli.daftarBerhenti');
